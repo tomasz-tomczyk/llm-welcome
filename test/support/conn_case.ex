@@ -33,6 +33,6 @@ defmodule LlmWelcomeWeb.ConnCase do
 
   setup tags do
     LlmWelcome.DataCase.setup_sandbox(tags)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn() |> Map.put(:host, "localhost")}
   end
 end
