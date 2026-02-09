@@ -25,6 +25,12 @@ defmodule LlmWelcomeWeb.Router do
     live "/", HomeLive
   end
 
+  scope "/api", LlmWelcomeWeb do
+    pipe_through :api
+
+    get "/issues", IssueController, :index
+  end
+
   scope "/webhooks", LlmWelcomeWeb do
     pipe_through :webhook
 

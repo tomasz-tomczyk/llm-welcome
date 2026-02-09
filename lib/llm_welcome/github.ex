@@ -18,6 +18,25 @@ defmodule LlmWelcome.GitHub do
     |> Repo.all()
   end
 
+  def list_open_issues(opts \\ []) do
+    language = Keyword.get(opts, :language)
+
+    from(i in Issue,
+      join: r in assoc(i, :repository),
+      where: i.state == "open",
+      order_by: [desc: i.inserted_at],
+      preload: [repository: r]
+    )
+    |> maybe_filter_repo_language(language)
+    |> Repo.all()
+  end
+
+  defp maybe_filter_repo_language(query, nil), do: query
+  defp maybe_filter_repo_language(query, ""), do: query
+
+  defp maybe_filter_repo_language(query, language),
+    do: where(query, [_i, r], r.language == ^language)
+
   def count_open_issues do
     from(i in Issue, where: i.state == "open")
     |> Repo.aggregate(:count)
@@ -90,6 +109,10 @@ defmodule LlmWelcome.GitHub do
       conflict_target: :github_id,
       returning: true
     )
+  end
+
+  def delete_repository(%Repository{} = repository) do
+    Repo.delete(repository)
   end
 
   def get_repository_by_github_id(github_id) do

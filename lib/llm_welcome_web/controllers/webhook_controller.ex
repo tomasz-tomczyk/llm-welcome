@@ -120,6 +120,35 @@ defmodule LlmWelcomeWeb.WebhookController do
     end
   end
 
+  # Installation repository events (add/remove repos from existing installation)
+
+  defp handle_event("installation_repositories", "added", %{
+         "installation" => installation,
+         "repositories_added" => repos
+       }) do
+    {:ok, inst} =
+      GitHub.upsert_installation(%{
+        github_installation_id: installation["id"],
+        account_login: installation["account"]["login"],
+        account_type: installation["account"]["type"]
+      })
+
+    sync_repos(inst, repos)
+  end
+
+  defp handle_event("installation_repositories", "removed", %{
+         "repositories_removed" => repos
+       }) do
+    for repo <- repos do
+      case GitHub.get_repository_by_github_id(repo["id"]) do
+        nil -> :ok
+        repository -> GitHub.delete_repository(repository)
+      end
+    end
+
+    Logger.info("Removed #{length(repos)} repos from installation")
+  end
+
   # Catch-all
 
   defp handle_event(event, action, _params) do
