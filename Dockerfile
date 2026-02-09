@@ -50,6 +50,7 @@ RUN mix assets.setup
 
 COPY priv priv
 COPY llm-welcome.skill.md llm-welcome.skill.md
+COPY prepare-for-llm-welcome.skill.md prepare-for-llm-welcome.skill.md
 
 COPY lib lib
 
