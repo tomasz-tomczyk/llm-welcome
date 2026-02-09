@@ -23,6 +23,7 @@ defmodule LlmWelcomeWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
+    get "/llm-welcome.skill.md", SkillController, :show
   end
 
   scope "/api", LlmWelcomeWeb do

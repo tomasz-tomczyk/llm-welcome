@@ -87,7 +87,7 @@ defmodule LlmWelcomeWeb.HomeLive do
               </div>
             </div>
             <p class="text-xs text-base-content/40">
-              <a href={~p"/llm-welcome.skill.md"} class="link link-primary">View the skill file</a>
+              <a href="/llm-welcome.skill.md" class="link link-primary">View the skill file</a>
               to see exactly what your agent will do.
             </p>
           </div>
