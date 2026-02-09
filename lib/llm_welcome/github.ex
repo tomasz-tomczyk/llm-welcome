@@ -1,6 +1,55 @@
 defmodule LlmWelcome.GitHub do
+  import Ecto.Query
+
   alias LlmWelcome.Repo
   alias LlmWelcome.GitHub.{Installation, Repository, Issue}
+
+  # Directory queries
+
+  def list_language_counts do
+    from(r in Repository,
+      join: i in Issue,
+      on: i.repository_id == r.id,
+      where: i.state == "open" and not is_nil(r.language),
+      group_by: r.language,
+      select: {r.language, count(i.id)},
+      order_by: [desc: count(i.id)]
+    )
+    |> Repo.all()
+  end
+
+  def count_open_issues do
+    from(i in Issue, where: i.state == "open")
+    |> Repo.aggregate(:count)
+  end
+
+  def list_repositories_with_issues(opts \\ []) do
+    language = Keyword.get(opts, :language)
+
+    from(r in Repository,
+      join: i in Issue,
+      on: i.repository_id == r.id,
+      where: i.state == "open",
+      group_by: r.id,
+      select: %{
+        id: r.id,
+        owner: r.owner,
+        name: r.name,
+        full_name: r.full_name,
+        description: r.description,
+        language: r.language,
+        stars: r.stars,
+        issue_count: count(i.id)
+      },
+      order_by: [desc: r.stars]
+    )
+    |> maybe_filter_language(language)
+    |> Repo.all()
+  end
+
+  defp maybe_filter_language(query, nil), do: query
+  defp maybe_filter_language(query, ""), do: query
+  defp maybe_filter_language(query, language), do: where(query, [r], r.language == ^language)
 
   # Installations
 

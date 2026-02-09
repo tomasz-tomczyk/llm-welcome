@@ -35,38 +35,38 @@ defmodule LlmWelcomeWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
-      <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/logo.svg"} width="36" />
-          <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
-        </a>
-      </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <a href="https://phoenixframework.org/" class="btn btn-ghost">Website</a>
-          </li>
-          <li>
-            <a href="https://github.com/phoenixframework/phoenix" class="btn btn-ghost">GitHub</a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
-              Get Started <span aria-hidden="true">&rarr;</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+    <div class="flex-1 flex flex-col mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-4 gap-4">
+      <header class="navbar bg-base-100 rounded-box shadow-sm px-4">
+        <div class="flex-1">
+          <a href="/" class="text-xl font-bold tracking-tight">LLM Welcome</a>
+        </div>
+        <div class="flex-none">
+          <ul class="flex px-1 space-x-2 items-center">
+            <li>
+              <a
+                href="https://github.com/apps/llm-welcome"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-ghost btn-sm"
+              >
+                Add your project
+              </a>
+            </li>
+            <li>
+              <.theme_toggle />
+            </li>
+          </ul>
+        </div>
+      </header>
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
+      <main class="flex-1 bg-base-100 rounded-box shadow-sm p-6 sm:p-8">
         {render_slot(@inner_block)}
-      </div>
-    </main>
+      </main>
+
+      <footer class="py-2 text-center text-sm opacity-50">
+        Open source issues for LLM-assisted contributors
+      </footer>
+    </div>
 
     <.flash_group flash={@flash} />
     """

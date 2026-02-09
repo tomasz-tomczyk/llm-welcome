@@ -1,8 +1,8 @@
-defmodule LlmWelcomeWeb.PageControllerTest do
+defmodule LlmWelcomeWeb.HomeLiveTest do
   use LlmWelcomeWeb.ConnCase
 
-  test "GET /", %{conn: conn} do
+  test "GET / renders homepage", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
+    assert html_response(conn, 200) =~ "LLM Welcome"
   end
 end

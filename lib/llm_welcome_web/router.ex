@@ -22,7 +22,7 @@ defmodule LlmWelcomeWeb.Router do
   scope "/", LlmWelcomeWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive
   end
 
   scope "/webhooks", LlmWelcomeWeb do
