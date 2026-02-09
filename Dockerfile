@@ -49,6 +49,7 @@ RUN mix deps.compile
 RUN mix assets.setup
 
 COPY priv priv
+COPY llm-welcome.skill.md llm-welcome.skill.md
 
 COPY lib lib
 

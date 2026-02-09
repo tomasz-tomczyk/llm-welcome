@@ -1,11 +1,13 @@
 defmodule LlmWelcomeWeb.SkillController do
   use LlmWelcomeWeb, :controller
 
-  @skill_path Application.app_dir(:llm_welcome, "priv/static/llm-welcome.skill.md")
+  @external_resource skill_path = Path.expand("../../../llm-welcome.skill.md", __DIR__)
+  @skill_content File.read!(skill_path)
 
   def show(conn, _params) do
     conn
     |> put_resp_content_type("text/markdown", "utf-8")
-    |> send_file(200, @skill_path)
+    |> resp(200, @skill_content)
+    |> send_resp()
   end
 end
