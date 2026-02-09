@@ -86,9 +86,16 @@ defmodule LlmWelcomeWeb.WebhookController do
     end
   end
 
-  defp handle_event("issues", action, %{"issue" => issue}) when action in ["closed", "deleted"] do
+  defp handle_event("issues", "closed", %{"issue" => issue}) do
+    case GitHub.close_issue_by_github_id(issue["id"]) do
+      {:ok, _} -> Logger.info("Issue closed: ##{issue["number"]}")
+      {:error, :not_found} -> :ok
+    end
+  end
+
+  defp handle_event("issues", "deleted", %{"issue" => issue}) do
     case GitHub.delete_issue_by_github_id(issue["id"]) do
-      {:ok, _} -> Logger.info("Issue removed (#{action}): ##{issue["number"]}")
+      {:ok, _} -> Logger.info("Issue deleted: ##{issue["number"]}")
       _ -> :ok
     end
   end
@@ -114,8 +121,22 @@ defmodule LlmWelcomeWeb.WebhookController do
         :ok
 
       repository ->
+        merged? = pr["merged"] == true
+
         for issue_number <- extract_linked_issue_numbers(pr["body"]) do
-          GitHub.update_issue_has_open_pr(repository.id, issue_number, false)
+          if merged? do
+            GitHub.record_contribution(repository.id, issue_number, %{
+              contributor: pr["user"]["login"],
+              merged_pr_url: pr["html_url"],
+              has_open_pr: false
+            })
+
+            Logger.info(
+              "Contribution recorded: #{pr["user"]["login"]} merged PR for #{repo["full_name"]}##{issue_number}"
+            )
+          else
+            GitHub.update_issue_has_open_pr(repository.id, issue_number, false)
+          end
         end
     end
   end

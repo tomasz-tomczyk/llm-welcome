@@ -14,6 +14,8 @@ defmodule LlmWelcome.GitHub.Issue do
     field :state, :string, default: "open"
     field :has_open_pr, :boolean, default: false
     field :html_url, :string
+    field :contributor, :string
+    field :merged_pr_url, :string
 
     belongs_to :repository, LlmWelcome.GitHub.Repository
 
@@ -31,7 +33,9 @@ defmodule LlmWelcome.GitHub.Issue do
       :labels,
       :state,
       :has_open_pr,
-      :html_url
+      :html_url,
+      :contributor,
+      :merged_pr_url
     ])
     |> validate_required([:github_id, :repository_id, :number, :title, :html_url])
     |> unique_constraint(:github_id)

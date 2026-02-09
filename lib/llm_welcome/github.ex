@@ -136,6 +136,18 @@ defmodule LlmWelcome.GitHub do
     )
   end
 
+  def close_issue_by_github_id(github_id) do
+    case Repo.get_by(Issue, github_id: github_id) do
+      nil ->
+        {:error, :not_found}
+
+      issue ->
+        issue
+        |> Issue.changeset(%{state: "closed"})
+        |> Repo.update()
+    end
+  end
+
   def delete_issue_by_github_id(github_id) do
     case Repo.get_by(Issue, github_id: github_id) do
       nil -> {:ok, nil}
@@ -145,6 +157,18 @@ defmodule LlmWelcome.GitHub do
 
   def get_issue_by_repo_and_number(repository_id, number) do
     Repo.get_by(Issue, repository_id: repository_id, number: number)
+  end
+
+  def record_contribution(repository_id, issue_number, attrs) do
+    case get_issue_by_repo_and_number(repository_id, issue_number) do
+      nil ->
+        {:error, :not_found}
+
+      issue ->
+        issue
+        |> Issue.changeset(attrs)
+        |> Repo.update()
+    end
   end
 
   def update_issue_has_open_pr(repository_id, issue_number, has_open_pr) do
