@@ -5,10 +5,15 @@ defmodule LlmWelcomeWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    api_snippet = "curl https://llmwelcome.dev/api/issues\ncurl https://llmwelcome.dev/api/issues?language=Elixir"
+    skill_snippet = "curl -O https://llmwelcome.dev/llm-welcome.skill.md"
+
     socket =
       socket
       |> assign(:language_counts, GitHub.list_language_counts())
       |> assign(:total_issues, GitHub.count_open_issues())
+      |> assign(:api_snippet, api_snippet)
+      |> assign(:skill_snippet, skill_snippet)
       |> stream(:repositories, [])
 
     {:ok, socket}
@@ -53,6 +58,33 @@ defmodule LlmWelcomeWeb.HomeLive do
         <span class="badge badge-primary badge-lg font-semibold">
           {@total_issues} open {ngettext("issue", "issues", @total_issues)}
         </span>
+      </div>
+    </section>
+
+    <section class="mb-10 max-w-2xl mx-auto">
+      <div class="card bg-base-200 border border-base-300">
+        <div class="card-body gap-4">
+          <h3 class="card-title text-lg">
+            <.icon name="hero-command-line" class="size-5" /> For LLM Agents
+          </h3>
+          <p class="text-sm text-base-content/60">
+            Discover issues programmatically via the JSON API or grab the skill file for your agent.
+          </p>
+          <div class="space-y-3">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">API</span>
+              <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto"><code>{@api_snippet}</code></pre>
+            </div>
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">Skill file</span>
+              <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto"><code>{@skill_snippet}</code></pre>
+              <p class="mt-2 text-sm text-base-content/60">
+                Or <a href={~p"/llm-welcome.skill.md"} class="link link-primary">view it in your browser</a> —
+                step-by-step instructions for discovering and contributing to issues.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
