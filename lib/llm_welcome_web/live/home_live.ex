@@ -48,118 +48,187 @@ defmodule LlmWelcomeWeb.HomeLive do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash}>
-      <section class="text-center mb-10">
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3">
-          Find your first LLM contribution
-        </h1>
-        <p class="text-lg text-base-content/60 max-w-2xl mx-auto">
-          Open source issues curated for LLM-assisted contributors.
-          Pick one, fire up your agent, and ship.
-        </p>
-        <div :if={@total_issues > 0} class="mt-4">
-          <span class="badge badge-primary badge-lg font-semibold">
-            {@total_issues} open {ngettext("issue", "issues", @total_issues)}
-          </span>
-        </div>
-      </section>
-
-      <section class="mb-10 max-w-2xl mx-auto">
-        <div class="card bg-base-200 border border-base-300">
-          <div class="card-body gap-4">
-            <h3 class="card-title text-lg">
-              <.icon name="hero-command-line" class="size-5" /> Get your agent started
-            </h3>
-            <p class="text-sm text-base-content/60">
-              Tell your agent to find you an issue to work on. Just paste this:
-            </p>
-            <div class="space-y-4">
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">
-                  Tell your agent
-                </span>
-                <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto italic"><code>{@agent_prompt}</code></pre>
-              </div>
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">
-                  Or use the API directly
-                </span>
-                <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto"><code>{@api_snippet}</code></pre>
-              </div>
+      <section class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-14 lg:items-center">
+        <div class="space-y-5 lg:pr-6">
+          <div class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary shadow-sm">
+            Built for agent workflows
+          </div>
+          <h1 class="font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            Find your first
+            <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              LLM-powered
+            </span>
+            contribution
+          </h1>
+          <p class="text-lg text-base-content/70 sm:text-xl">
+            A curated directory of open source issues that are perfect for AI-assisted contributors.
+            Pick a project, expand the issue list, and ship with confidence.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <div
+              :if={@total_issues > 0}
+              class="rounded-full border border-base-300 bg-base-100 px-4 py-2 text-sm font-semibold text-base-content shadow-sm"
+            >
+              {@total_issues} open {ngettext("issue", "issues", @total_issues)}
             </div>
-            <p class="text-xs text-base-content/40">
-              <a href="/llm-welcome.skill.md" class="link link-primary">View the skill file</a>
-              to see exactly what your agent will do.
-            </p>
+            <a
+              href="/llm-welcome.skill.md"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-base-content/80 transition hover:text-base-content"
+            >
+              View the agent skill
+              <.icon name="hero-arrow-up-right" class="size-4" />
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-base-300 bg-base-100/80 p-4 shadow-[0_20px_60px_-40px_rgba(15,23,42,0.6)] backdrop-blur sm:p-6 lg:justify-self-end lg:w-full lg:max-w-sm">
+          <div class="flex items-center gap-2 text-sm font-semibold text-base-content">
+            <.icon name="hero-command-line" class="size-5 text-primary" />
+            Get your agent started
+          </div>
+          <p class="mt-2 text-sm text-base-content/70">
+            Drop a prompt or curl snippet into your workflow to surface the latest issues.
+          </p>
+          <div class="mt-4 space-y-4">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">
+                Tell your agent
+              </span>
+              <pre class="mt-2 max-w-full whitespace-pre-wrap break-words rounded-2xl border border-base-300 bg-neutral px-4 py-3 text-sm text-neutral-content shadow-inner"><code>{@agent_prompt}</code></pre>
+            </div>
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">
+                Use the API directly
+              </span>
+              <pre class="mt-2 max-w-full whitespace-pre-wrap break-words rounded-2xl border border-base-300 bg-neutral px-4 py-3 text-sm text-neutral-content shadow-inner"><code>{@api_snippet}</code></pre>
+            </div>
           </div>
         </div>
       </section>
 
-      <section
-        :if={@language_counts != []}
-        class="flex flex-wrap gap-2 justify-center mb-10"
-      >
+      <section :if={@language_counts != []} class="mt-10 flex flex-wrap items-center gap-2">
+        <span class="text-xs font-semibold text-base-content/60">
+          Filter by language
+        </span>
         <button
           :for={{language, count} <- @language_counts}
+          id={"language-#{language}"}
           phx-click="filter_language"
           phx-value-language={language}
           class={[
-            "badge badge-lg cursor-pointer gap-1.5 transition-colors",
+            "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold transition cursor-pointer",
             if(@selected_language == language,
-              do: "badge-primary",
-              else: "badge-outline hover:badge-neutral"
+              do: "border-neutral bg-neutral text-neutral-content shadow-sm",
+              else: "border-base-300 bg-base-100 text-base-content/70 hover:border-base-content/40 hover:text-base-content"
             )
           ]}
         >
           {language}
-          <span class="opacity-60">{count}</span>
+          <span class="rounded-full bg-base-200 px-2 py-0.5 text-[10px] font-bold text-base-content/70">
+            {count}
+          </span>
         </button>
       </section>
 
       <section
         id="repositories"
         phx-update="stream"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        class="mt-8 grid grid-cols-1 gap-4 lg:gap-6"
       >
-        <article
+        <details
           :for={{dom_id, repo} <- @streams.repositories}
           id={dom_id}
-          class="card bg-base-200 shadow-sm hover:shadow-md transition-shadow border border-base-300"
+          class="group rounded-2xl border border-base-300 bg-base-100/80 shadow-[0_14px_40px_-38px_rgba(15,23,42,0.6)] transition hover:shadow-[0_22px_50px_-40px_rgba(15,23,42,0.7)]"
         >
-          <div class="card-body gap-3">
-            <h2 class="card-title text-base">
-              <a
-                href={"https://github.com/#{repo.full_name}"}
-                target="_blank"
-                rel="noopener"
-                class="link link-hover truncate"
-              >
-                <span class="text-base-content/50 font-normal">{repo.owner}/</span>{repo.name}
-              </a>
-            </h2>
-            <p :if={repo.description} class="text-sm text-base-content/60 line-clamp-2">
-              {repo.description}
-            </p>
-            <div class="card-actions items-center mt-auto pt-1 flex-wrap">
-              <span :if={repo.language} class="badge badge-outline badge-sm">{repo.language}</span>
-              <span class="badge badge-ghost badge-sm gap-1">
-                <.icon name="hero-star-micro" class="size-3" /> {repo.stars}
-              </span>
-              <span class="badge badge-primary badge-sm">
-                {repo.issue_count} {ngettext("issue", "issues", repo.issue_count)}
-              </span>
+          <summary class="cursor-pointer list-none px-3 py-3 outline-none sm:px-5 sm:py-4">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div class="min-w-0 space-y-1">
+                <h2 class="font-display text-lg font-semibold text-base-content">
+                  <a
+                    href={"https://github.com/#{repo.full_name}"}
+                    target="_blank"
+                    rel="noopener"
+                    class="block max-w-full cursor-pointer truncate transition hover:text-primary"
+                  >
+                    <span class="text-base-content/40">{repo.owner}/</span>{repo.name}
+                  </a>
+                </h2>
+                <p :if={repo.description} class="max-w-2xl text-sm text-base-content/70 line-clamp-1">
+                  {repo.description}
+                </p>
+                <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-base-content/60">
+                  <span :if={repo.language} class="rounded-full border border-base-300 bg-base-100 px-2.5 py-1">
+                    {repo.language}
+                  </span>
+                  <span class="inline-flex items-center gap-1 rounded-full border border-base-300 bg-base-100 px-2.5 py-1">
+                    <.icon name="hero-star" class="size-3 text-primary" />
+                    {repo.stars}
+                  </span>
+                  <span class="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-primary">
+                    {length(repo.issues)} {ngettext("issue", "issues", length(repo.issues))}
+                  </span>
+                </div>
+              </div>
+              <div class="hidden items-center gap-2 text-xs font-semibold text-base-content/60 sm:flex">
+                <span class="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-primary">
+                  {length(repo.issues)} {ngettext("issue", "issues", length(repo.issues))}
+                </span>
+                <.icon name="hero-chevron-down" class="size-4 transition group-open:rotate-180" />
+              </div>
             </div>
+          </summary>
+
+          <div class="border-t border-base-300 px-4 pb-4 pt-4 sm:px-5">
+            <ul class="space-y-3">
+              <li :for={issue <- repo.issues} class="rounded-2xl border border-base-300 bg-base-100 px-4 py-3 shadow-sm">
+                <div class="flex flex-wrap items-start justify-between gap-3">
+                  <div class="space-y-2">
+                    <a
+                      href={issue.html_url}
+                      target="_blank"
+                      rel="noopener"
+                      class="cursor-pointer text-sm font-semibold text-base-content transition hover:text-primary"
+                    >
+                      #{issue.number} {issue.title}
+                    </a>
+                    <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-base-content/50">
+                      <span :if={issue.has_open_pr} class="rounded-full border border-success/30 bg-success/10 px-2 py-1 text-success">
+                        PR open
+                      </span>
+                      <span
+                        :for={label <- Enum.take(issue.labels, 3)}
+                        class="rounded-full border border-base-300 bg-base-200 px-2 py-1 text-base-content/70"
+                      >
+                        {label["name"]}
+                      </span>
+                    </div>
+                  </div>
+                  <a
+                    href={issue.html_url}
+                    target="_blank"
+                    rel="noopener"
+                    class="cursor-pointer inline-flex items-center gap-1 rounded-full border border-base-300 bg-base-100 px-3 py-1 text-xs font-semibold text-base-content/70 transition hover:border-base-content/40 hover:text-base-content"
+                  >
+                    Open issue
+                    <.icon name="hero-arrow-up-right" class="size-3" />
+                  </a>
+                </div>
+              </li>
+            </ul>
           </div>
-        </article>
+        </details>
       </section>
 
-      <section :if={@total_issues == 0} class="text-center py-20">
-        <div class="text-5xl mb-4">
-          <.icon name="hero-code-bracket" class="size-12 opacity-20" />
+      <section :if={@total_issues == 0} class="py-20 text-center">
+        <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-base-200">
+          <.icon name="hero-code-bracket" class="size-6 text-base-content/40" />
         </div>
-        <p class="text-lg font-medium text-base-content/60">No issues yet</p>
-        <p class="text-sm text-base-content/40 mt-1 max-w-md mx-auto">
+        <p class="text-lg font-semibold text-base-content">No issues yet</p>
+        <p class="mt-2 text-sm text-base-content/60">
           Install the GitHub App and add the
-          <code class="badge badge-outline badge-sm align-middle">llm-welcome</code>
+          <code class="rounded-full border border-base-300 bg-base-100 px-2 py-1 text-xs font-semibold text-base-content/70">
+            llm-welcome
+          </code>
           label to your issues to get started.
         </p>
       </section>

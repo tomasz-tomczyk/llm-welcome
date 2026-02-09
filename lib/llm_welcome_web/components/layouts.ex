@@ -35,37 +35,39 @@ defmodule LlmWelcomeWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <div class="flex-1 flex flex-col mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-4 gap-4">
-      <header class="navbar bg-base-100 rounded-box shadow-sm px-4">
-        <div class="flex-1">
-          <a href="/" class="text-xl font-bold tracking-tight">LLM Welcome</a>
-        </div>
-        <div class="flex-none">
-          <ul class="flex px-1 space-x-2 items-center">
-            <li>
-              <a
-                href="https://github.com/apps/llm-welcome"
-                target="_blank"
-                rel="noopener"
-                class="btn btn-ghost btn-sm"
-              >
-                Add your project
-              </a>
-            </li>
-            <li>
-              <.theme_toggle />
-            </li>
-          </ul>
-        </div>
-      </header>
+    <div class="relative isolate min-h-screen">
+      <div class="pointer-events-none absolute inset-0 -z-10">
+        <div class="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-[120px] [[data-theme=dark]_&]:bg-primary/10" />
+        <div class="absolute -bottom-20 right-10 h-64 w-64 rounded-full bg-secondary/20 blur-[120px] [[data-theme=dark]_&]:bg-secondary/10" />
+      </div>
 
-      <main class="flex-1 bg-base-100 rounded-box shadow-sm p-6 sm:p-8">
-        {render_slot(@inner_block)}
-      </main>
+      <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-3 pb-8 pt-5 sm:px-6 lg:px-8">
+        <header class="flex flex-nowrap items-center justify-between gap-2 sm:gap-4">
+          <a href="/" class="font-display text-base font-semibold tracking-tight text-base-content sm:text-xl">
+            <span class="text-primary">llm</span>welcome<span class="text-base-content/50">.dev</span>
+          </a>
+          <div class="flex items-center gap-2 sm:gap-3">
+            <a
+              href="https://github.com/apps/llm-welcome"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100 px-2.5 py-1.5 text-xs font-semibold text-base-content shadow-sm transition hover:border-base-content/40 sm:px-4 sm:py-2 sm:text-sm"
+            >
+              Setup
+              <.icon name="hero-arrow-up-right" class="size-3 opacity-60 sm:size-4" />
+            </a>
+            <.theme_toggle />
+          </div>
+        </header>
 
-      <footer class="py-2 text-center text-sm opacity-50">
-        Open source issues for LLM-assisted contributors
-      </footer>
+        <main class="mt-8 flex-1 px-1 pb-2 sm:px-2 sm:pb-4">
+          {render_slot(@inner_block)}
+        </main>
+
+        <footer class="mt-8 text-center text-sm text-base-content/60">
+          Open source issues for LLM-assisted contributors
+        </footer>
+      </div>
     </div>
 
     <.flash_group flash={@flash} />
@@ -122,31 +124,34 @@ defmodule LlmWelcomeWeb.Layouts do
   """
   def theme_toggle(assigns) do
     ~H"""
-    <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
-      <div class="absolute w-1/3 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 transition-[left]" />
+    <div class="relative flex items-center rounded-full border border-base-300 bg-base-100 p-1 shadow-sm">
+      <div class="absolute left-1 top-1 h-6 w-6 rounded-full bg-base-200 transition-[left] [[data-theme=light]_&]:left-[28px] [[data-theme=dark]_&]:left-[52px]" />
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        id="theme-system"
+        class="relative z-10 flex h-6 w-6 items-center justify-center"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="system"
       >
-        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-computer-desktop-micro" class="size-3 opacity-70" />
       </button>
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        id="theme-light"
+        class="relative z-10 flex h-6 w-6 items-center justify-center"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="light"
       >
-        <.icon name="hero-sun-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-sun-micro" class="size-3 text-amber-500" />
       </button>
 
       <button
-        class="flex p-2 cursor-pointer w-1/3"
+        id="theme-dark"
+        class="relative z-10 flex h-6 w-6 items-center justify-center"
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="dark"
       >
-        <.icon name="hero-moon-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-moon-micro" class="size-3 opacity-70" />
       </button>
     </div>
     """

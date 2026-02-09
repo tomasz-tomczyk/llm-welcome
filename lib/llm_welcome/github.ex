@@ -44,22 +44,17 @@ defmodule LlmWelcome.GitHub do
 
   def list_repositories_with_issues(opts \\ []) do
     language = Keyword.get(opts, :language)
+    issues_query =
+      from(i in Issue,
+        where: i.state == "open",
+        order_by: [desc: i.inserted_at]
+      )
 
     from(r in Repository,
-      join: i in Issue,
-      on: i.repository_id == r.id,
+      join: i in assoc(r, :issues),
       where: i.state == "open",
-      group_by: r.id,
-      select: %{
-        id: r.id,
-        owner: r.owner,
-        name: r.name,
-        full_name: r.full_name,
-        description: r.description,
-        language: r.language,
-        stars: r.stars,
-        issue_count: count(i.id)
-      },
+      preload: [issues: ^issues_query],
+      distinct: r.id,
       order_by: [desc: r.stars]
     )
     |> maybe_filter_language(language)
