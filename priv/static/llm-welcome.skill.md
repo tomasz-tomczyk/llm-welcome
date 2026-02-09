@@ -1,59 +1,114 @@
-# LLM Welcome - Issue Discovery Skill
+---
+name: llm-welcome
+version: 0.1.0
+description: Find open-source issues ready for LLM-assisted contributions. Fetch, pick, and ship.
+homepage: https://llmwelcome.dev
+---
 
-Use this skill to find open-source issues that maintainers have flagged as suitable for LLM-assisted contributions.
+# LLM Welcome
 
-## Discovering issues
+Find open-source issues that maintainers have flagged as ready for LLM-assisted contributions. Fetch an issue, work on it, open a PR.
 
-Fetch issues from the public API:
+**API:** `https://llmwelcome.dev/api`
+
+## Quick start
+
+Tell your agent:
+
+> Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on
+
+Or fetch issues directly:
 
 ```bash
-curl https://llmwelcome.dev/api/issues
+curl -s https://llmwelcome.dev/api/issues
 ```
 
-Filter by programming language:
+Filter by language:
 
 ```bash
-curl https://llmwelcome.dev/api/issues?language=Python
+curl -s https://llmwelcome.dev/api/issues?language=Elixir
 ```
 
-The response includes an `issues` array and a `meta` object with available languages and counts.
+Pick an issue where `has_open_pr` is `false`, then follow the steps below.
 
 ## Working on an issue
 
-1. Pick an issue from the API response where `has_open_pr` is `false`.
-2. Read the full issue details. If `gh` CLI is available, prefer it over fetching the URL:
-   ```bash
-   gh issue view NUMBER --repo OWNER/REPO
-   ```
-   Otherwise, read the issue at `html_url`.
-3. If the repository is not already cloned locally, clone it:
-   ```bash
-   gh repo clone OWNER/REPO   # if gh is available
-   git clone https://github.com/OWNER/REPO.git
-   ```
-   If you are already inside the repository, skip this step.
-4. Read the repository's AGENTS.md, CLAUDE.md, or CONTRIBUTING.md if present - these contain project-specific conventions.
-5. Implement the fix or feature on a new branch.
-6. Open a pull request that references the issue:
-   ```bash
-   gh pr create --title "Fix: short description" --body "Fixes #NUMBER"
-   ```
+### Step 1: Pick an issue
 
-## Response schema
+Fetch the issues list and present them to the user. For each issue, show:
+- Repository (`repository.full_name`) and language (`repository.language`)
+- Issue title and number
+- Whether a PR is already open (`has_open_pr`)
 
-Each issue contains:
-- `title` - issue title
-- `number` - issue number in the repository
-- `html_url` - link to the issue on GitHub
-- `labels` - list of label names
-- `has_open_pr` - whether someone has already opened a PR for this issue
-- `repository.full_name` - owner/repo identifier
-- `repository.description` - repository description
-- `repository.language` - primary programming language
-- `repository.stars` - GitHub star count
+Ask the user which issue they want to work on. Skip issues where `has_open_pr` is `true`.
 
-## Tips
+### Step 2: Read the issue
 
-- Prefer issues where `has_open_pr` is `false` to avoid duplicating work.
-- Use `meta.languages` to find issues in languages you can work with.
-- Always follow the contributing guidelines of the target repository.
+If `gh` CLI is available (preferred):
+
+```bash
+gh issue view NUMBER --repo OWNER/REPO
+```
+
+Otherwise, fetch the issue at `html_url`.
+
+### Step 3: Fork and clone the repo
+
+If you are already inside a fork of the repository, skip this step.
+
+```bash
+gh repo fork OWNER/REPO --clone
+```
+
+This forks the repo to your GitHub account and clones it locally. If `gh` is not available, fork via the GitHub web UI and then `git clone` your fork.
+
+### Step 4: Read the repo conventions
+
+Check for AGENTS.md, CLAUDE.md, or CONTRIBUTING.md and follow their conventions.
+
+### Step 5: Implement and open a PR
+
+Create a branch, make your changes, then open a pull request against the original repo:
+
+```bash
+gh pr create --title "Short description" --body "Fixes #NUMBER"
+```
+
+## API reference
+
+```
+GET /api/issues
+GET /api/issues?language=Elixir
+```
+
+### Issue object
+
+| Field | Description |
+|-------|-------------|
+| `title` | Issue title |
+| `number` | Issue number in the repository |
+| `html_url` | Link to the issue on GitHub |
+| `labels` | List of label names |
+| `has_open_pr` | Whether someone has already opened a PR |
+| `repository.full_name` | owner/repo |
+| `repository.description` | Repository description |
+| `repository.language` | Primary programming language |
+| `repository.stars` | GitHub star count |
+
+### Meta object
+
+| Field | Description |
+|-------|-------------|
+| `total_count` | Total number of issues returned |
+| `languages` | List of `{name, count}` for filtering |
+
+## Everything you can do
+
+| Action | How |
+|--------|-----|
+| **List all issues** | `curl -s https://llmwelcome.dev/api/issues` |
+| **Filter by language** | `curl -s https://llmwelcome.dev/api/issues?language=Python` |
+| **See available languages** | Check `meta.languages` in any response |
+| **Read an issue** | `gh issue view NUMBER --repo OWNER/REPO` |
+| **Fork and clone** | `gh repo fork OWNER/REPO --clone` |
+| **Open a PR** | `gh pr create --title "..." --body "Fixes #NUMBER"` |

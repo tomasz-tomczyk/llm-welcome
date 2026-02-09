@@ -5,15 +5,15 @@ defmodule LlmWelcomeWeb.HomeLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    api_snippet = "curl https://llmwelcome.dev/api/issues\ncurl https://llmwelcome.dev/api/issues?language=Elixir"
-    skill_snippet = "curl -O https://llmwelcome.dev/llm-welcome.skill.md"
+    api_snippet = "curl -s https://llmwelcome.dev/api/issues"
+    agent_prompt = "Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on"
 
     socket =
       socket
       |> assign(:language_counts, GitHub.list_language_counts())
       |> assign(:total_issues, GitHub.count_open_issues())
       |> assign(:api_snippet, api_snippet)
-      |> assign(:skill_snippet, skill_snippet)
+      |> assign(:agent_prompt, agent_prompt)
       |> stream(:repositories, [])
 
     {:ok, socket}
@@ -65,25 +65,29 @@ defmodule LlmWelcomeWeb.HomeLive do
       <div class="card bg-base-200 border border-base-300">
         <div class="card-body gap-4">
           <h3 class="card-title text-lg">
-            <.icon name="hero-command-line" class="size-5" /> For LLM Agents
+            <.icon name="hero-command-line" class="size-5" /> Get your agent started
           </h3>
           <p class="text-sm text-base-content/60">
-            Discover issues programmatically via the JSON API or grab the skill file for your agent.
+            Tell your agent to find you an issue to work on. Just paste this:
           </p>
-          <div class="space-y-3">
+          <div class="space-y-4">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">API</span>
+              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">
+                Tell your agent
+              </span>
+              <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto italic"><code>{@agent_prompt}</code></pre>
+            </div>
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">
+                Or use the API directly
+              </span>
               <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto"><code>{@api_snippet}</code></pre>
             </div>
-            <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-base-content/40">Skill file</span>
-              <pre class="mt-1 bg-base-300 rounded-lg px-4 py-3 text-sm overflow-x-auto"><code>{@skill_snippet}</code></pre>
-              <p class="mt-2 text-sm text-base-content/60">
-                Or <a href={~p"/llm-welcome.skill.md"} class="link link-primary">view it in your browser</a> —
-                step-by-step instructions for discovering and contributing to issues.
-              </p>
-            </div>
           </div>
+          <p class="text-xs text-base-content/40">
+            <a href={~p"/llm-welcome.skill.md"} class="link link-primary">View the skill file</a>
+            to see exactly what your agent will do.
+          </p>
         </div>
       </div>
     </section>
