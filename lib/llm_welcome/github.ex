@@ -44,6 +44,7 @@ defmodule LlmWelcome.GitHub do
 
   def list_repositories_with_issues(opts \\ []) do
     language = Keyword.get(opts, :language)
+
     issues_query =
       from(i in Issue,
         where: i.state == "open",

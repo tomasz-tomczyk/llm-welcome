@@ -75,16 +75,14 @@ defmodule LlmWelcomeWeb.HomeLive do
               href="/llm-welcome.skill.md"
               class="inline-flex items-center gap-2 text-sm font-semibold text-base-content/80 transition hover:text-base-content"
             >
-              View the agent skill
-              <.icon name="hero-arrow-up-right" class="size-4" />
+              View the agent skill <.icon name="hero-arrow-up-right" class="size-4" />
             </a>
           </div>
         </div>
 
         <div class="rounded-3xl border border-base-300 bg-base-100/80 p-4 shadow-[0_20px_60px_-40px_rgba(15,23,42,0.6)] backdrop-blur sm:p-6 lg:justify-self-end lg:w-full lg:max-w-sm">
           <div class="flex items-center gap-2 text-sm font-semibold text-base-content">
-            <.icon name="hero-command-line" class="size-5 text-primary" />
-            Get your agent started
+            <.icon name="hero-command-line" class="size-5 text-primary" /> Get your agent started
           </div>
           <p class="mt-2 text-sm text-base-content/70">
             Drop a prompt or curl snippet into your workflow to surface the latest issues.
@@ -119,7 +117,8 @@ defmodule LlmWelcomeWeb.HomeLive do
             "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold transition cursor-pointer",
             if(@selected_language == language,
               do: "border-neutral bg-neutral text-neutral-content shadow-sm",
-              else: "border-base-300 bg-base-100 text-base-content/70 hover:border-base-content/40 hover:text-base-content"
+              else:
+                "border-base-300 bg-base-100 text-base-content/70 hover:border-base-content/40 hover:text-base-content"
             )
           ]}
         >
@@ -157,7 +156,10 @@ defmodule LlmWelcomeWeb.HomeLive do
                   {repo.description}
                 </p>
                 <div class="flex flex-wrap items-center gap-2 text-xs font-semibold text-base-content/60">
-                  <span :if={repo.language} class="rounded-full border border-base-300 bg-base-100 px-2.5 py-1">
+                  <span
+                    :if={repo.language}
+                    class="rounded-full border border-base-300 bg-base-100 px-2.5 py-1"
+                  >
                     {repo.language}
                   </span>
                   <span class="inline-flex items-center gap-1 rounded-full border border-base-300 bg-base-100 px-2.5 py-1">
@@ -180,7 +182,10 @@ defmodule LlmWelcomeWeb.HomeLive do
 
           <div class="border-t border-base-300 px-4 pb-4 pt-4 sm:px-5">
             <ul class="space-y-3">
-              <li :for={issue <- repo.issues} class="rounded-2xl border border-base-300 bg-base-100 px-4 py-3 shadow-sm">
+              <li
+                :for={issue <- repo.issues}
+                class="rounded-2xl border border-base-300 bg-base-100 px-4 py-3 shadow-sm"
+              >
                 <div class="flex flex-wrap items-start justify-between gap-3">
                   <div class="space-y-2">
                     <a
@@ -192,7 +197,10 @@ defmodule LlmWelcomeWeb.HomeLive do
                       #{issue.number} {issue.title}
                     </a>
                     <div class="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-base-content/50">
-                      <span :if={issue.has_open_pr} class="rounded-full border border-success/30 bg-success/10 px-2 py-1 text-success">
+                      <span
+                        :if={issue.has_open_pr}
+                        class="rounded-full border border-success/30 bg-success/10 px-2 py-1 text-success"
+                      >
                         PR open
                       </span>
                       <span
@@ -209,8 +217,7 @@ defmodule LlmWelcomeWeb.HomeLive do
                     rel="noopener"
                     class="cursor-pointer inline-flex items-center gap-1 rounded-full border border-base-300 bg-base-100 px-3 py-1 text-xs font-semibold text-base-content/70 transition hover:border-base-content/40 hover:text-base-content"
                   >
-                    Open issue
-                    <.icon name="hero-arrow-up-right" class="size-3" />
+                    Open issue <.icon name="hero-arrow-up-right" class="size-3" />
                   </a>
                 </div>
               </li>

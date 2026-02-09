@@ -43,7 +43,10 @@ defmodule LlmWelcomeWeb.Layouts do
 
       <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-3 pb-8 pt-5 sm:px-6 lg:px-8">
         <header class="flex flex-nowrap items-center justify-between gap-2 sm:gap-4">
-          <a href="/" class="font-display text-base font-semibold tracking-tight text-base-content sm:text-xl">
+          <a
+            href="/"
+            class="font-display text-base font-semibold tracking-tight text-base-content sm:text-xl"
+          >
             <span class="text-primary">llm</span>welcome<span class="text-base-content/50">.dev</span>
           </a>
           <div class="flex items-center gap-2 sm:gap-3">
@@ -53,8 +56,7 @@ defmodule LlmWelcomeWeb.Layouts do
               rel="noopener"
               class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100 px-2.5 py-1.5 text-xs font-semibold text-base-content shadow-sm transition hover:border-base-content/40 sm:px-4 sm:py-2 sm:text-sm"
             >
-              Setup
-              <.icon name="hero-arrow-up-right" class="size-3 opacity-60 sm:size-4" />
+              Setup <.icon name="hero-arrow-up-right" class="size-3 opacity-60 sm:size-4" />
             </a>
             <.theme_toggle />
           </div>
