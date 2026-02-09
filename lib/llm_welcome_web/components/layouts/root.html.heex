@@ -4,9 +4,62 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="LLM Welcome" suffix=" · Open Source for AI">
+
+    <.live_title default="LLM Welcome" suffix=" · AI-Friendly Issues">
       {assigns[:page_title]}
     </.live_title>
+
+    <%!-- SEO Meta Tags --%>
+    <meta
+      name="description"
+      content={
+        assigns[:meta_description] ||
+          "Discover open source issues ready for AI-assisted contributions. LLM Welcome connects developers using AI coding tools with maintainers who welcome LLM-assisted pull requests."
+      }
+    />
+    <meta
+      name="keywords"
+      content="open source, AI coding, LLM contributions, GitHub issues, Claude, Cursor, Copilot, AI-assisted development, developer tools"
+    />
+    <meta name="author" content="LLM Welcome" />
+
+    <%!-- Canonical URL --%>
+    <link rel="canonical" href={assigns[:canonical_url] || "https://llmwelcome.dev"} />
+
+    <%!-- Open Graph Tags --%>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LLM Welcome" />
+    <meta
+      property="og:title"
+      content={assigns[:og_title] || assigns[:page_title] || "LLM Welcome · AI-Friendly Issues"}
+    />
+    <meta
+      property="og:description"
+      content={
+        assigns[:meta_description] ||
+          "Discover open source issues ready for AI-assisted contributions. LLM Welcome connects developers using AI coding tools with maintainers who welcome LLM-assisted pull requests."
+      }
+    />
+    <meta property="og:url" content={assigns[:canonical_url] || "https://llmwelcome.dev"} />
+    <meta property="og:locale" content="en_US" />
+
+    <%!-- Twitter Card Tags --%>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content={assigns[:og_title] || assigns[:page_title] || "LLM Welcome · AI-Friendly Issues"}
+    />
+    <meta
+      name="twitter:description"
+      content={
+        assigns[:meta_description] ||
+          "Discover open source issues ready for AI-assisted contributions. LLM Welcome connects developers using AI coding tools with maintainers who welcome LLM-assisted pull requests."
+      }
+    />
+
+    <%!-- Favicon --%>
+    <link rel="icon" type="image/x-icon" href={~p"/favicon.ico"} />
+
     <link phx-track-static rel="stylesheet" href={~p"/assets/css/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/js/app.js"}>
     </script>

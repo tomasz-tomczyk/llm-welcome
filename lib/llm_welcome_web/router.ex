@@ -26,6 +26,7 @@ defmodule LlmWelcomeWeb.Router do
     live "/about", AboutLive
     get "/llm-welcome.skill.md", SkillController, :llm_welcome
     get "/prepare-for-llm-welcome.skill.md", SkillController, :prepare
+    get "/sitemap.xml", SitemapController, :index
   end
 
   scope "/api", LlmWelcomeWeb do

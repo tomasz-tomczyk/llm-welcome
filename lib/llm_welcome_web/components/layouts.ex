@@ -99,7 +99,17 @@ defmodule LlmWelcomeWeb.Layouts do
                 GitHub
               </a>
             </div>
-            <p>Created by <a href="https://github.com/tomasz-tomczyk" target="_blank" rel="noopener" class="hover:text-base-content transition">Tomasz Tomczyk</a></p>
+            <p>
+              Created by
+              <a
+                href="https://github.com/tomasz-tomczyk"
+                target="_blank"
+                rel="noopener"
+                class="hover:text-base-content transition"
+              >
+                Tomasz Tomczyk
+              </a>
+            </p>
           </div>
         </footer>
       </div>

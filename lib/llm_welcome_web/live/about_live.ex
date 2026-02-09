@@ -3,6 +3,15 @@ defmodule LlmWelcomeWeb.AboutLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    socket =
+      socket
+      |> assign(:page_title, "About")
+      |> assign(
+        :meta_description,
+        "Learn about LLM Welcome - a directory connecting open source maintainers with developers using AI coding assistants like Claude, Cursor, and Copilot."
+      )
+      |> assign(:canonical_url, "https://llmwelcome.dev/about")
+
     {:ok, socket}
   end
 

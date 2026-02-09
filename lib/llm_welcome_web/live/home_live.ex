@@ -13,6 +13,12 @@ defmodule LlmWelcomeWeb.HomeLive do
 
     socket =
       socket
+      |> assign(:page_title, "Find Open Source Issues")
+      |> assign(
+        :meta_description,
+        "Browse open source issues ready for AI-assisted contributions. Find your next project to contribute to with Claude, Cursor, or Copilot."
+      )
+      |> assign(:canonical_url, "https://llmwelcome.dev")
       |> assign(:language_counts, GitHub.list_language_counts())
       |> assign(:total_issues, GitHub.count_open_issues())
       |> assign(:agent_prompt, agent_prompt)
