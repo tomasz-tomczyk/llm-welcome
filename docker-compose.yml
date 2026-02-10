@@ -1,7 +1,6 @@
 services:
-  postgres:
+  db:
     image: postgres:17.4
-    container_name: llm_welcome_postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -16,5 +15,30 @@ services:
       timeout: 5s
       retries: 5
 
+  app:
+    profiles: [full]
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - hex_data:/root/.hex
+      - mix_data:/root/.mix
+    ports:
+      - '4000:4000'
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: '5432'
+      PHX_IP: '0.0.0.0'
+    command: sleep infinity
+
 volumes:
   postgres_data:
+  hex_data:
+  mix_data:

@@ -57,24 +57,37 @@ curl https://llmwelcome.dev/api/issues?language=Elixir
 
 ## Development
 
-**Requirements:** Elixir 1.19+, PostgreSQL (via Docker Compose)
+### Option 1: Local Elixir (recommended for regular contributors)
+
+**Requirements:** Elixir 1.19+, Docker
 
 ```bash
-docker-compose up -d        # start Postgres on port 5435
-mix setup                   # install deps, create DB, run migrations
-mix phx.server              # start server at localhost:4000
+make setup          # Start Postgres, install deps, create DB, run migrations
+make server         # Start server at localhost:4000
 ```
 
-**Webhook tunnel (dev):**
+### Option 2: Docker only (no Elixir install needed)
+
+**Requirements:** Docker
 
 ```bash
-tailscale funnel 4000
+make dev            # Start Postgres + app container, run setup
+make dev.server     # Start server at localhost:4000
 ```
 
-**Environment variables:**
-- `GITHUB_APP_ID` — GitHub App ID
-- `GITHUB_PRIVATE_KEY` — PEM-encoded private key
-- `GITHUB_WEBHOOK_SECRET` — webhook signature secret
+Other Docker commands:
+
+```bash
+make dev.test       # Run tests
+make dev.shell      # Open a shell in the container
+make dev.stop       # Stop everything
+```
+
+Run `make help` to see all available commands.
+
+### GitHub App (optional)
+
+The app works without a GitHub App — seed data populates everything you need for local development. To test webhook integration (receiving real GitHub events), see [docs/github-app-setup.md](docs/github-app-setup.md).
 
 ## Contributing
 

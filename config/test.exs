@@ -8,9 +8,9 @@ import Config
 config :llm_welcome, LlmWelcome.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: System.get_env("DATABASE_HOST", "localhost"),
   database: "llm_welcome_test#{System.get_env("MIX_TEST_PARTITION")}",
-  port: 5435,
+  port: String.to_integer(System.get_env("DATABASE_PORT", "5435")),
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 

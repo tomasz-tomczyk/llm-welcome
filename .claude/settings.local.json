@@ -8,7 +8,9 @@
       "mcp__context7__query-docs",
       "Bash(mix deps.clean:*)",
       "Bash(fly machines list:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(gh search code:*)",
+      "Bash(gh api:*)"
     ],
     "deny": [],
     "ask": []

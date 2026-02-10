@@ -39,3 +39,6 @@ llm_welcome-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Environment variables (may contain secrets)
+.env
+
