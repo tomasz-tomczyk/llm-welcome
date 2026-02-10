@@ -1,6 +1,6 @@
 COMPOSE := $(shell command -v docker-compose 2>/dev/null || echo "docker compose")
 
-.PHONY: help setup server test db db.stop dev dev.server dev.test dev.stop dev.shell
+.PHONY: help setup server test precommit db db.stop dev dev.server dev.test dev.precommit dev.stop dev.shell
 
 help: ## Show available commands
 	@grep -E '^[a-zA-Z_.-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -15,6 +15,9 @@ server: ## Start the Phoenix dev server
 
 test: ## Run the test suite
 	mix test
+
+precommit: ## Run pre-commit checks (compile, format, test)
+	mix precommit
 
 # --- Infrastructure ---
 
@@ -36,6 +39,9 @@ dev.server: ## Start Phoenix server in Docker
 
 dev.test: ## Run tests in Docker
 	$(COMPOSE) exec app mix test
+
+dev.precommit: ## Run pre-commit checks in Docker
+	$(COMPOSE) exec app mix precommit
 
 dev.stop: ## Stop all Docker services
 	$(COMPOSE) --profile full down
