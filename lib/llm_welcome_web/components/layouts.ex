@@ -45,7 +45,7 @@ defmodule LlmWelcomeWeb.Layouts do
         <header class="flex flex-nowrap items-center justify-between gap-2 sm:gap-4">
           <a
             href="/"
-            class="font-display text-base font-semibold tracking-tight text-base-content sm:text-xl"
+            class="text-base font-semibold tracking-tight text-base-content sm:text-xl"
           >
             <span class="text-primary">llm</span>welcome<span class="text-base-content/50">.dev</span>
           </a>

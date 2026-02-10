@@ -5,7 +5,10 @@
       "Bash(mix compile:*)",
       "Skill(daisy-ui)",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(mix deps.clean:*)",
+      "Bash(fly machines list:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
