@@ -22,6 +22,8 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - .:/app
+      - deps_data:/app/deps
+      - build_data:/app/_build
       - hex_data:/root/.hex
       - mix_data:/root/.mix
     ports:
@@ -40,5 +42,7 @@ services:
 
 volumes:
   postgres_data:
+  deps_data:
+  build_data:
   hex_data:
   mix_data:
