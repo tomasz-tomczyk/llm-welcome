@@ -14,7 +14,9 @@
       "Bash(find:*)",
       "mcp__plugin_reposit_reposit__search",
       "Bash(fly deploy:*)",
-      "mcp__plugin_reposit_reposit__share"
+      "mcp__plugin_reposit_reposit__share",
+      "WebFetch(domain:community.fly.io)",
+      "Bash(fly certs list:*)"
     ],
     "deny": [],
     "ask": []

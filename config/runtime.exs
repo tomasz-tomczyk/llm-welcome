@@ -20,14 +20,14 @@ if System.get_env("PHX_SERVER") do
   config :llm_welcome, LlmWelcomeWeb.Endpoint, server: true
 end
 
-config :llm_welcome, LlmWelcomeWeb.Endpoint,
-  http: [port: String.to_integer(System.get_env("PORT", "4000"))]
-
 # GitHub App configuration
 config :llm_welcome,
   github_app_id: System.get_env("GITHUB_APP_ID"),
   github_private_key: System.get_env("GITHUB_PRIVATE_KEY"),
   github_webhook_secret: System.get_env("GITHUB_WEBHOOK_SECRET")
+
+config :llm_welcome, LlmWelcomeWeb.Endpoint,
+  http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
 if config_env() == :prod do
   database_url =

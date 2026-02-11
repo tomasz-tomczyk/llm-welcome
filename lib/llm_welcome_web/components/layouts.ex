@@ -36,11 +36,6 @@ defmodule LlmWelcomeWeb.Layouts do
   def app(assigns) do
     ~H"""
     <div class="relative isolate min-h-screen">
-      <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-[120px] [[data-theme=dark]_&]:bg-primary/10" />
-        <div class="absolute bottom-0 right-10 h-64 w-64 rounded-full bg-secondary/20 blur-[120px] [[data-theme=dark]_&]:bg-secondary/10" />
-      </div>
-
       <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-3 pb-8 pt-5 sm:px-6 lg:px-8">
         <header class="flex flex-nowrap items-center justify-between gap-2 sm:gap-4">
           <.link
