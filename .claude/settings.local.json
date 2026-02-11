@@ -10,7 +10,11 @@
       "Bash(fly machines list:*)",
       "Bash(curl:*)",
       "Bash(gh search code:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(find:*)",
+      "mcp__plugin_reposit_reposit__search",
+      "Bash(fly deploy:*)",
+      "mcp__plugin_reposit_reposit__share"
     ],
     "deny": [],
     "ask": []

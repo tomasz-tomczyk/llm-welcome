@@ -43,19 +43,19 @@ defmodule LlmWelcomeWeb.Layouts do
 
       <div class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-3 pb-8 pt-5 sm:px-6 lg:px-8">
         <header class="flex flex-nowrap items-center justify-between gap-2 sm:gap-4">
-          <a
-            href="/"
+          <.link
+            navigate={~p"/"}
             class="text-base font-semibold tracking-tight text-base-content sm:text-xl"
           >
             <span class="text-primary">llm</span>welcome<span class="text-base-content/50">.dev</span>
-          </a>
+          </.link>
           <div class="flex items-center gap-3 sm:gap-5">
-            <a
-              href="/about"
+            <.link
+              navigate={~p"/about"}
               class="text-sm font-medium text-base-content/70 transition hover:text-base-content"
             >
               About
-            </a>
+            </.link>
             <a
               href="https://github.com/tomasz-tomczyk/llm-welcome"
               target="_blank"
@@ -82,7 +82,7 @@ defmodule LlmWelcomeWeb.Layouts do
         <footer class="mt-8 border-t border-base-300 pt-6 text-sm text-base-content/60">
           <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
             <div class="flex items-center gap-4">
-              <a href="/about" class="hover:text-base-content transition">About</a>
+              <.link navigate={~p"/about"} class="hover:text-base-content transition">About</.link>
               <a
                 href="https://github.com/tomasz-tomczyk/llm-welcome"
                 target="_blank"

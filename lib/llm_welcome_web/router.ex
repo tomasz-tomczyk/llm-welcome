@@ -7,7 +7,17 @@ defmodule LlmWelcomeWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, html: {LlmWelcomeWeb.Layouts, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+
+    plug :put_secure_browser_headers, %{
+      "content-security-policy" =>
+        "default-src 'self'; " <>
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " <>
+          "style-src 'self' 'unsafe-inline'; " <>
+          "img-src 'self' data: https:; " <>
+          "font-src 'self' data:; " <>
+          "connect-src 'self' wss: ws:; " <>
+          "frame-ancestors 'none'"
+    }
   end
 
   pipeline :api do
@@ -22,8 +32,10 @@ defmodule LlmWelcomeWeb.Router do
   scope "/", LlmWelcomeWeb do
     pipe_through :browser
 
-    live "/", HomeLive
-    live "/about", AboutLive
+    live_session :public do
+      live "/", HomeLive
+      live "/about", AboutLive
+    end
     get "/llm-welcome.skill.md", SkillController, :llm_welcome
     get "/prepare-for-llm-welcome.skill.md", SkillController, :prepare
     get "/sitemap.xml", SitemapController, :index

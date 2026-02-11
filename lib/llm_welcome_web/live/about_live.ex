@@ -99,7 +99,7 @@ defmodule LlmWelcomeWeb.AboutLive do
 
         <p>
           <strong>Want to contribute?</strong>
-          Browse the issues on the <a href="/">homepage</a>
+          Browse the issues on the <.link navigate={~p"/"}>homepage</.link>
           or tell your AI assistant:
         </p>
 
