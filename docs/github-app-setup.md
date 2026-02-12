@@ -107,7 +107,7 @@ dotenv
 
 1. Go to your GitHub App's public page: `https://github.com/apps/llm-welcome-dev-<your-name>`
 2. Click **Install** and select a test repository
-3. Create an issue and add the `llm-welcome` label
+3. Create an issue and add the `llm welcome` label
 4. Check your server logs — you should see webhook events arrive
 
 ## Webhook events handled
@@ -116,5 +116,5 @@ dotenv
 |-------|---------|--------------|
 | `installation` | created, deleted | Tracks/removes the GitHub App installation |
 | `installation_repositories` | added, removed | Syncs repository list |
-| `issues` | labeled, unlabeled, closed, deleted | Tracks issues with the `llm-welcome` label |
+| `issues` | labeled, unlabeled, closed, deleted | Tracks issues with the `llm welcome` label |
 | `pull_request` | opened, reopened, closed | Links PRs to issues, records contributions |

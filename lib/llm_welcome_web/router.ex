@@ -35,6 +35,7 @@ defmodule LlmWelcomeWeb.Router do
     live_session :public do
       live "/", HomeLive
       live "/about", AboutLive
+      live "/leaderboard", LeaderboardLive
     end
 
     get "/llm-welcome.skill.md", SkillController, :llm_welcome

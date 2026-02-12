@@ -22,7 +22,9 @@
       "mcp__tidewave__get_source_location",
       "Skill(daisy-ui)",
       "WebFetch(domain:community.fly.io)",
-      "WebFetch(domain:hex.pm)"
+      "WebFetch(domain:hex.pm)",
+      "mcp__Tidewave-Web__browser_eval",
+      "mcp__tidewave__get_logs"
     ],
     "deny": [],
     "ask": []

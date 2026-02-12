@@ -124,7 +124,7 @@ alias LlmWelcome.GitHub
 
 # --- Issues: Open, available for LLM contribution ---
 
-llm_welcome_label = %{"id" => 1, "name" => "llm-welcome", "color" => "0e8a16"}
+llm_welcome_label = %{"id" => 1, "name" => "llm welcome", "color" => "0e8a16"}
 bug_label = %{"id" => 2, "name" => "bug", "color" => "d73a4a"}
 docs_label = %{"id" => 3, "name" => "documentation", "color" => "0075ca"}
 enhancement_label = %{"id" => 4, "name" => "enhancement", "color" => "a2eeef"}
@@ -328,9 +328,109 @@ good_first_label = %{"id" => 5, "name" => "good first issue", "color" => "7057ff
     html_url: "https://github.com/samdev/todo-cli/issues/3"
   })
 
+# --- More closed issues for leaderboard variety ---
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_014,
+    repository_id: phoenix_repo.id,
+    number: 240,
+    title: "Fix deprecated Logger.warn usage",
+    body: "Replace Logger.warn with Logger.warning throughout the codebase.",
+    labels: [llm_welcome_label, bug_label],
+    state: "closed",
+    contributor: "claude-contributor",
+    merged_pr_url: "https://github.com/phoenixframework/phoenix/pull/241",
+    html_url: "https://github.com/phoenixframework/phoenix/issues/240"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_015,
+    repository_id: liveview_repo.id,
+    number: 75,
+    title: "Add missing @impl annotations",
+    body: "Several callback implementations are missing @impl true annotations.",
+    labels: [llm_welcome_label, enhancement_label],
+    state: "closed",
+    contributor: "claude-contributor",
+    merged_pr_url: "https://github.com/phoenixframework/phoenix_live_view/pull/76",
+    html_url: "https://github.com/phoenixframework/phoenix_live_view/issues/75"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_016,
+    repository_id: cargo_repo.id,
+    number: 1030,
+    title: "Improve --help text for cargo publish",
+    body: "The help text for cargo publish is missing examples.",
+    labels: [llm_welcome_label, docs_label],
+    state: "closed",
+    contributor: "llm-bot-42",
+    merged_pr_url: "https://github.com/rust-lang/cargo/pull/1031",
+    html_url: "https://github.com/rust-lang/cargo/issues/1030"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_017,
+    repository_id: rustlings_repo.id,
+    number: 470,
+    title: "Fix hint typo in move_semantics exercise",
+    body: "The hint for move_semantics4 has a grammatical error.",
+    labels: [llm_welcome_label, docs_label],
+    state: "closed",
+    contributor: "gpt-helper",
+    merged_pr_url: "https://github.com/rust-lang/rustlings/pull/471",
+    html_url: "https://github.com/rust-lang/rustlings/issues/470"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_018,
+    repository_id: samdev_repo.id,
+    number: 2,
+    title: "Add --verbose flag to all commands",
+    body: "A verbose flag would help with debugging.",
+    labels: [llm_welcome_label, enhancement_label],
+    state: "closed",
+    contributor: "ai-coder-99",
+    merged_pr_url: "https://github.com/samdev/todo-cli/pull/2b",
+    html_url: "https://github.com/samdev/todo-cli/issues/2"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_019,
+    repository_id: js_repo.id,
+    number: 18,
+    title: "Fix useInterval cleanup on unmount",
+    body: "The useInterval hook doesn't properly clear the interval on unmount.",
+    labels: [llm_welcome_label, bug_label],
+    state: "closed",
+    contributor: "claude-contributor",
+    merged_pr_url: "https://github.com/samdev/react-hooks-lib/pull/19",
+    html_url: "https://github.com/samdev/react-hooks-lib/issues/18"
+  })
+
+{:ok, _} =
+  GitHub.upsert_issue(%{
+    github_id: 70_000_020,
+    repository_id: elixir_repo.id,
+    number: 90,
+    title: "Add examples to Enum.zip_with/2 docs",
+    body: "The Enum.zip_with/2 documentation lacks practical examples.",
+    labels: [llm_welcome_label, docs_label],
+    state: "closed",
+    contributor: "gpt-helper",
+    merged_pr_url: "https://github.com/elixir-lang/elixir/pull/91",
+    html_url: "https://github.com/elixir-lang/elixir/issues/90"
+  })
+
 IO.puts("""
 Seeds complete!
   4 installations
   7 repositories (Elixir, Rust, Python, JavaScript)
-  13 issues (9 open, 1 with active PR, 3 closed with contributions)
+  20 issues (9 open, 1 with active PR, 10 closed with contributions)
 """)

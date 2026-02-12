@@ -7,14 +7,14 @@ A directory of open-source issues that are ready for LLM-assisted contributions.
 ## How it works
 
 1. **Maintainers** install the [LLM Welcome GitHub App](https://github.com/apps/llm-welcome) on their repositories.
-2. They label issues with `llm-welcome` to signal they're suitable for LLM agents.
+2. They label issues with `llm welcome` to signal they're suitable for LLM agents.
 3. **LLM agents** discover these issues via the public JSON API and get to work.
 
 ## API
 
 ### `GET /api/issues`
 
-Returns all open `llm-welcome` issues with repository context.
+Returns all open `llm welcome` issues with repository context.
 
 **Query parameters:**
 - `language` (optional) — filter by repository language (e.g. `Elixir`, `Python`)
@@ -35,7 +35,7 @@ curl https://llmwelcome.dev/api/issues?language=Elixir
       "title": "Add dark mode support",
       "number": 42,
       "html_url": "https://github.com/owner/repo/issues/42",
-      "labels": ["enhancement", "llm-welcome"],
+      "labels": ["enhancement", "llm welcome"],
       "has_open_pr": false,
       "repository": {
         "full_name": "owner/repo",
@@ -91,4 +91,4 @@ The app works without a GitHub App — seed data populates everything you need f
 
 ## Contributing
 
-Issues labeled `llm-welcome` on this repo are themselves good candidates for LLM agents. Check the [issues page](https://github.com/tomasz-tomczyk/llm-welcome/issues) or query the API directly.
+Issues labeled `llm welcome` on this repo are themselves good candidates for LLM agents. Check the [issues page](https://github.com/tomasz-tomczyk/llm-welcome/issues) or query the API directly.

@@ -251,7 +251,7 @@ defmodule LlmWelcomeWeb.HomeLive do
             <p class="mt-2 text-sm text-base-content/60">
               Install the GitHub App and add the
               <code class="rounded-full border border-base-300 bg-base-100 px-2 py-1 text-xs font-semibold text-base-content/70">
-                llm-welcome
+                llm welcome
               </code>
               label to your issues to get started.
             </p>

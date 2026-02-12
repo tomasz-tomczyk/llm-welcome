@@ -27,7 +27,9 @@ Install the LLM Welcome GitHub App on your repository:
 2. Click "Install"
 3. Select your repository
 
-The app watches for issues with the `llm-welcome` label and adds them to the directory.
+The app watches for issues with the `llm welcome` label and adds them to the directory.
+
+> **Label variants:** The app accepts `llm welcome`, `llm-welcome`, and `llm_welcome` (case-insensitive). Use whichever form you prefer.
 
 ## Step 2: Add agent instructions to your repo
 
@@ -64,7 +66,7 @@ Example:
 
 ## Step 3: Label issues for LLM contributions
 
-Add the `llm-welcome` label to issues that are well-suited for LLM-assisted contributions. Good candidates are:
+Add the `llm welcome` label to issues that are well-suited for LLM-assisted contributions. Good candidates are:
 
 - **Well-defined scope**: Clear start and end points
 - **Self-contained**: Minimal dependencies on other work
@@ -117,7 +119,7 @@ Example issue template:
 
 - [ ] GitHub App installed
 - [ ] `AGENTS.md` or `CLAUDE.md` created
-- [ ] `llm-welcome` label created
+- [ ] `llm welcome` label created
 - [ ] At least one issue labeled
 
 Once you've completed these steps, your labeled issues will appear at https://llmwelcome.dev.

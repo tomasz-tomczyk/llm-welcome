@@ -4,6 +4,18 @@ defmodule LlmWelcome.GitHub do
   alias LlmWelcome.Repo
   alias LlmWelcome.GitHub.{Installation, Repository, Issue}
 
+  # Leaderboard queries
+
+  def list_contributor_counts do
+    from(i in Issue,
+      where: not is_nil(i.contributor) and not is_nil(i.merged_pr_url),
+      group_by: i.contributor,
+      select: {i.contributor, count(i.id)},
+      order_by: [desc: count(i.id), asc: i.contributor]
+    )
+    |> Repo.all()
+  end
+
   # Directory queries
 
   def list_language_counts do

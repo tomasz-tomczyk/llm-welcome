@@ -54,7 +54,7 @@ defmodule LlmWelcomeWeb.AboutLive do
           <a href="https://github.com/apps/llm-welcome" target="_blank" rel="noopener">
             LLM Welcome GitHub App
           </a>
-          and add the <code>llm-welcome</code>
+          and add the <code>llm welcome</code>
           label to issues they want to surface. These issues
           appear in our directory and API, making them discoverable by developers and their AI
           assistants.

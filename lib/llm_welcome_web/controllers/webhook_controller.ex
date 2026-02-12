@@ -6,7 +6,7 @@ defmodule LlmWelcomeWeb.WebhookController do
   alias LlmWelcome.GitHub
   alias LlmWelcome.GitHub.API
 
-  @llm_welcome_label "llm-welcome"
+  @llm_welcome_label "llm welcome"
 
   def github(conn, params) do
     event = get_req_header(conn, "x-github-event") |> List.first()
@@ -54,7 +54,7 @@ defmodule LlmWelcomeWeb.WebhookController do
          "label" => label,
          "repository" => repo
        }) do
-    if label["name"] == @llm_welcome_label do
+    if llm_welcome_label?(label["name"]) do
       case GitHub.get_repository_by_github_id(repo["id"]) do
         nil ->
           Logger.warning("Repository not found for issue label event: #{repo["full_name"]}")
@@ -78,7 +78,7 @@ defmodule LlmWelcomeWeb.WebhookController do
   end
 
   defp handle_event("issues", "unlabeled", %{"issue" => issue, "label" => label}) do
-    if label["name"] == @llm_welcome_label do
+    if llm_welcome_label?(label["name"]) do
       case GitHub.delete_issue_by_github_id(issue["id"]) do
         {:ok, _} -> Logger.info("Issue untracked: ##{issue["number"]}")
         _ -> :ok
@@ -177,6 +177,16 @@ defmodule LlmWelcomeWeb.WebhookController do
   end
 
   # Helpers
+
+  defp llm_welcome_label?(name) when is_binary(name) do
+    name
+    |> String.downcase()
+    |> String.replace(~r/[-_]/, " ")
+    |> String.trim()
+    |> Kernel.==(@llm_welcome_label)
+  end
+
+  defp llm_welcome_label?(_), do: false
 
   defp sync_repos(installation, repos) when is_list(repos) do
     for repo <- repos do

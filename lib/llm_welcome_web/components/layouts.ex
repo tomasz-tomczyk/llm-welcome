@@ -44,7 +44,14 @@ defmodule LlmWelcomeWeb.Layouts do
           >
             <span class="text-primary">llm</span>welcome<span class="text-base-content/50">.dev</span>
           </.link>
-          <div class="flex items-center gap-3 sm:gap-5">
+          <%!-- Desktop nav --%>
+          <div class="hidden sm:flex items-center gap-5">
+            <.link
+              navigate={~p"/leaderboard"}
+              class="text-sm font-medium text-base-content/70 transition hover:text-base-content"
+            >
+              Leaderboard
+            </.link>
             <.link
               navigate={~p"/about"}
               class="text-sm font-medium text-base-content/70 transition hover:text-base-content"
@@ -57,18 +64,50 @@ defmodule LlmWelcomeWeb.Layouts do
               rel="noopener"
               class="inline-flex items-center gap-1.5 text-sm font-medium text-base-content/70 transition hover:text-base-content"
             >
-              <svg class="size-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  fill-rule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              <span class="hidden sm:inline">GitHub</span>
+              <.github_icon class="size-5" />
+              <span>GitHub</span>
             </a>
             <.theme_toggle />
           </div>
+
+          <%!-- Mobile nav --%>
+          <div class="flex items-center gap-3 sm:hidden">
+            <.theme_toggle />
+            <button
+              phx-click={toggle_mobile_menu()}
+              class="flex items-center justify-center text-base-content/70 hover:text-base-content transition cursor-pointer"
+              aria-label="Toggle menu"
+            >
+              <.icon name="hero-bars-3" class="size-6" />
+            </button>
+          </div>
         </header>
+
+        <%!-- Mobile menu panel --%>
+        <nav id="mobile-menu" class="hidden sm:hidden border-b border-base-300 pb-3 pt-2">
+          <div class="flex flex-col gap-1">
+            <.link
+              navigate={~p"/leaderboard"}
+              class="rounded-lg px-3 py-2 text-sm font-medium text-base-content/70 transition hover:bg-base-200 hover:text-base-content"
+            >
+              Leaderboard
+            </.link>
+            <.link
+              navigate={~p"/about"}
+              class="rounded-lg px-3 py-2 text-sm font-medium text-base-content/70 transition hover:bg-base-200 hover:text-base-content"
+            >
+              About
+            </.link>
+            <a
+              href="https://github.com/tomasz-tomczyk/llm-welcome"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-base-content/70 transition hover:bg-base-200 hover:text-base-content"
+            >
+              <.github_icon class="size-4" /> GitHub
+            </a>
+          </div>
+        </nav>
 
         <main class="mt-8 flex-1 px-1 pb-2 sm:px-2 sm:pb-4">
           {render_slot(@inner_block)}
@@ -77,21 +116,19 @@ defmodule LlmWelcomeWeb.Layouts do
         <footer class="mt-8 border-t border-base-300 pt-6 text-sm text-base-content/60">
           <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
             <div class="flex items-center gap-4">
+              <.link navigate={~p"/leaderboard"} class="hover:text-base-content transition">
+                Leaderboard
+              </.link>
+              <span class="text-base-content/30">|</span>
               <.link navigate={~p"/about"} class="hover:text-base-content transition">About</.link>
+              <span class="text-base-content/30">|</span>
               <a
                 href="https://github.com/tomasz-tomczyk/llm-welcome"
                 target="_blank"
                 rel="noopener"
                 class="inline-flex items-center gap-1.5 hover:text-base-content transition"
               >
-                <svg class="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill-rule="evenodd"
-                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                GitHub
+                <.github_icon class="size-4" /> GitHub
               </a>
             </div>
             <p>
@@ -194,6 +231,32 @@ defmodule LlmWelcomeWeb.Layouts do
         <.icon name="hero-moon-micro" class="size-3 opacity-70" />
       </button>
     </div>
+    """
+  end
+
+  defp toggle_mobile_menu do
+    JS.toggle(
+      to: "#mobile-menu",
+      in:
+        {"transition ease-out duration-200", "opacity-0 -translate-y-1",
+         "opacity-100 translate-y-0"},
+      out:
+        {"transition ease-in duration-150", "opacity-100 translate-y-0",
+         "opacity-0 -translate-y-1"}
+    )
+  end
+
+  attr :class, :any, default: "size-5"
+
+  defp github_icon(assigns) do
+    ~H"""
+    <svg class={@class} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd"
+      />
+    </svg>
     """
   end
 end
