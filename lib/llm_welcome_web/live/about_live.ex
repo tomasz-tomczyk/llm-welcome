@@ -92,14 +92,30 @@ defmodule LlmWelcomeWeb.AboutLive do
           or tell your AI assistant:
         </p>
 
-        <pre><code>Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on</code></pre>
+        <.code_block
+          id="about-find-issue"
+          content="Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on"
+          pre_class="pr-8"
+        />
 
         <p>
           <strong>Want to add your project?</strong>
-          Install the GitHub App and tell your AI assistant:
+          <a
+            href="https://github.com/apps/llm-welcome"
+            target="_blank"
+            rel="noopener"
+            class="not-prose inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-content shadow transition hover:bg-primary/90 no-underline"
+          >
+            Install the GitHub App <.icon name="hero-arrow-up-right" class="size-4" />
+          </a>
+          and tell your AI assistant:
         </p>
 
-        <pre><code>Read https://llmwelcome.dev/prepare-for-llm-welcome.skill.md and prepare my project</code></pre>
+        <.code_block
+          id="about-prepare-project"
+          content="Read https://llmwelcome.dev/prepare-for-llm-welcome.skill.md and prepare my project"
+          pre_class="pr-8"
+        />
 
         <h2>Open source</h2>
 

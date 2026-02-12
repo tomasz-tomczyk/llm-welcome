@@ -419,6 +419,62 @@ defmodule LlmWelcomeWeb.CoreComponents do
   end
 
   @doc """
+  Renders a code block with a copy-to-clipboard button.
+
+  ## Examples
+
+      <.code_block id="my-code" content="some code here" />
+      <.code_block id="prompt" content={@prompt} pre_class="mt-2 bg-neutral text-xs" />
+  """
+  attr :id, :string, required: true
+  attr :content, :string, required: true, doc: "the code text to display"
+  attr :class, :string, default: nil, doc: "additional classes for the wrapper div"
+  attr :pre_class, :string, default: nil, doc: "classes for the <pre> element"
+
+  def code_block(assigns) do
+    ~H"""
+    <div class={["relative", @class]} id={@id} data-code-block>
+      <pre class={@pre_class}><code>{@content}</code></pre>
+      <button
+        phx-hook=".CopyToClipboard"
+        id={"#{@id}-copy-btn"}
+        class="absolute top-1.5 right-1.5 flex items-center justify-center rounded-md p-1 text-neutral-content/40 hover:text-neutral-content transition cursor-pointer"
+        aria-label="Copy to clipboard"
+      >
+        <span data-icon="clipboard"><.icon name="hero-clipboard-document" class="size-4" /></span>
+        <span data-icon="check" class="hidden">
+          <.icon name="hero-clipboard-document-check" class="size-4 text-success" />
+        </span>
+      </button>
+      <script :type={Phoenix.LiveView.ColocatedHook} name=".CopyToClipboard">
+        export default {
+          mounted() {
+            this.el.addEventListener("click", () => {
+              const wrapper = this.el.closest("[data-code-block]")
+              const code = wrapper.querySelector("code")
+              const text = code.textContent.trim()
+
+              navigator.clipboard.writeText(text).then(() => {
+                const clipboardIcon = this.el.querySelector("[data-icon=clipboard]")
+                const checkIcon = this.el.querySelector("[data-icon=check]")
+
+                clipboardIcon.classList.add("hidden")
+                checkIcon.classList.remove("hidden")
+
+                setTimeout(() => {
+                  clipboardIcon.classList.remove("hidden")
+                  checkIcon.classList.add("hidden")
+                }, 2000)
+              })
+            })
+          }
+        }
+      </script>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a [Heroicon](https://heroicons.com).
 
   Heroicons come in three styles – outline, solid, and mini.
