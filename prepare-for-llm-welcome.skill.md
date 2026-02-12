@@ -9,12 +9,6 @@ homepage: https://llmwelcome.dev
 
 Get your open source project ready to receive high-quality contributions from LLM-assisted developers.
 
-## Quick start
-
-Tell your agent:
-
-> Read https://llmwelcome.dev/prepare-for-llm-welcome.skill.md and prepare my project for LLM contributions
-
 ## What is LLM Welcome?
 
 LLM Welcome is a curated directory of open source issues that maintainers have flagged as ready for LLM-assisted contributions. By preparing your project, you make it easy for AI-powered developers to find and work on your issues.
@@ -107,13 +101,13 @@ Example issue template:
 
 ## Best practices
 
-| Practice | Why |
-|----------|-----|
+| Practice                | Why                                            |
+| ----------------------- | ---------------------------------------------- |
 | **Keep issues focused** | Smaller, well-scoped issues get better results |
-| **Provide context** | Link to related issues, docs, or code |
-| **Update AGENTS.md** | Keep setup instructions current |
-| **Review PRs promptly** | Encourages more contributions |
-| **Give feedback** | Help improve AI-assisted contributions |
+| **Provide context**     | Link to related issues, docs, or code          |
+| **Update AGENTS.md**    | Keep setup instructions current                |
+| **Review PRs promptly** | Encourages more contributions                  |
+| **Give feedback**       | Help improve AI-assisted contributions         |
 
 ## Checklist
 

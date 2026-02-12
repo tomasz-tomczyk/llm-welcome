@@ -13,11 +13,7 @@ Find open-source issues that maintainers have flagged as ready for LLM-assisted 
 
 ## Quick start
 
-Tell your agent:
-
-> Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on
-
-Or fetch issues directly:
+Fetch issues directly:
 
 ```bash
 curl -s https://llmwelcome.dev/api/issues
@@ -36,6 +32,7 @@ Pick an issue where `has_open_pr` is `false`, then follow the steps below.
 ### Step 1: Pick an issue
 
 Fetch the issues list and present them to the user. For each issue, show:
+
 - Repository (`repository.full_name`) and language (`repository.language`)
 - Issue title and number
 - Whether a PR is already open (`has_open_pr`)
@@ -83,32 +80,32 @@ GET /api/issues?language=Elixir
 
 ### Issue object
 
-| Field | Description |
-|-------|-------------|
-| `title` | Issue title |
-| `number` | Issue number in the repository |
-| `html_url` | Link to the issue on GitHub |
-| `labels` | List of label names |
-| `has_open_pr` | Whether someone has already opened a PR |
-| `repository.full_name` | owner/repo |
-| `repository.description` | Repository description |
-| `repository.language` | Primary programming language |
-| `repository.stars` | GitHub star count |
+| Field                    | Description                             |
+| ------------------------ | --------------------------------------- |
+| `title`                  | Issue title                             |
+| `number`                 | Issue number in the repository          |
+| `html_url`               | Link to the issue on GitHub             |
+| `labels`                 | List of label names                     |
+| `has_open_pr`            | Whether someone has already opened a PR |
+| `repository.full_name`   | owner/repo                              |
+| `repository.description` | Repository description                  |
+| `repository.language`    | Primary programming language            |
+| `repository.stars`       | GitHub star count                       |
 
 ### Meta object
 
-| Field | Description |
-|-------|-------------|
-| `total_count` | Total number of issues returned |
-| `languages` | List of `{name, count}` for filtering |
+| Field         | Description                           |
+| ------------- | ------------------------------------- |
+| `total_count` | Total number of issues returned       |
+| `languages`   | List of `{name, count}` for filtering |
 
 ## Everything you can do
 
-| Action | How |
-|--------|-----|
-| **List all issues** | `curl -s https://llmwelcome.dev/api/issues` |
-| **Filter by language** | `curl -s https://llmwelcome.dev/api/issues?language=Python` |
-| **See available languages** | Check `meta.languages` in any response |
-| **Read an issue** | `gh issue view NUMBER --repo OWNER/REPO` |
-| **Fork and clone** | `gh repo fork OWNER/REPO --clone` |
-| **Open a PR** | `gh pr create --title "..." --body "Fixes #NUMBER"` |
+| Action                      | How                                                         |
+| --------------------------- | ----------------------------------------------------------- |
+| **List all issues**         | `curl -s https://llmwelcome.dev/api/issues`                 |
+| **Filter by language**      | `curl -s https://llmwelcome.dev/api/issues?language=Python` |
+| **See available languages** | Check `meta.languages` in any response                      |
+| **Read an issue**           | `gh issue view NUMBER --repo OWNER/REPO`                    |
+| **Fork and clone**          | `gh repo fork OWNER/REPO --clone`                           |
+| **Open a PR**               | `gh pr create --title "..." --body "Fixes #NUMBER"`         |
