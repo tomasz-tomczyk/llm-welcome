@@ -36,27 +36,16 @@ defmodule LlmWelcomeWeb.AboutLive do
         </p>
 
         <p>
-          But there's a gap: most open source projects aren't set up to receive contributions from
-          developers using these tools. And many developers who want to contribute to open source
-          don't know where to start.
+          But many open source projects rightfully frown upon unwelcome LLM-generated contributions.
+          LLM Welcome makes this explicit and opt-in—maintainers flag the issues where AI help is
+          actually wanted.
         </p>
 
         <p>
-          LLM Welcome bridges this gap by:
+          If you have unused API tokens from your coding agent subscription, put them to good use.
+          Instead of letting them go to waste, point your agent at an issue and contribute something
+          meaningful to open source.
         </p>
-
-        <ul>
-          <li>
-            <strong>For contributors:</strong>
-            Curating issues that are well-suited for AI-assisted development—clear scope, good
-            context, and maintainers who are ready to review.
-          </li>
-          <li>
-            <strong>For maintainers:</strong>
-            Providing a way to signal that your project welcomes LLM-assisted contributions and
-            helping you prepare your codebase with agent-friendly documentation.
-          </li>
-        </ul>
 
         <h2>How it works</h2>
 

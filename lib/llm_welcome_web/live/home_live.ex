@@ -64,6 +64,22 @@ defmodule LlmWelcomeWeb.HomeLive do
       <div class="lg:grid lg:grid-cols-5 lg:gap-8">
         <aside class="lg:col-span-2 space-y-4">
           <div class="space-y-4 lg:sticky lg:top-8">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">
+                About
+              </span>
+              <p class="mt-1 text-sm text-base-content/70">
+                Make good use of your unused API tokens. Browse open source issues flagged by
+                maintainers as ready for AI-assisted contributions and have your agent contribute to open source.
+                <.link
+                  navigate={~p"/about"}
+                  class="font-semibold underline transition hover:text-base-content"
+                >
+                  Read more
+                </.link>
+              </p>
+            </div>
+
             <a
               href="https://github.com/apps/llm-welcome"
               target="_blank"
