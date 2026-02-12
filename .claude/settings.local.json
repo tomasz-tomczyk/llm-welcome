@@ -16,9 +16,18 @@
       "Bash(fly deploy:*)",
       "mcp__plugin_reposit_reposit__share",
       "WebFetch(domain:community.fly.io)",
-      "Bash(fly certs list:*)"
+      "Bash(fly certs list:*)",
+      "WebFetch(domain:hex.pm)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "mcp__tidewave__get_source_location",
+      "Bash(gh repo view:*)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "tidewave"
+  ]
 }
