@@ -29,7 +29,7 @@ defmodule LlmWelcomeWeb.LeaderboardLive do
           <h1 class="text-lg font-semibold text-base-content">Leaderboard</h1>
           <p class="mt-1 text-sm text-base-content/70">
             Contributors ranked by number of merged
-            <code class="rounded-full border border-base-300 bg-base-100 px-2 py-1 text-xs font-semibold text-base-content/70">
+            <code class="badge badge-primary badge-outline font-mono px-1.5">
               llm-welcome
             </code>
             pull requests.
