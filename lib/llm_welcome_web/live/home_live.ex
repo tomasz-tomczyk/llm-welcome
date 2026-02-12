@@ -101,7 +101,12 @@ defmodule LlmWelcomeWeb.HomeLive do
                   <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">
                     Tell your agent
                   </span>
-                  <pre class="mt-2 max-w-full whitespace-pre-wrap break-words rounded-xl border border-base-300 bg-neutral px-3 py-2 text-xs text-neutral-content shadow-inner"><code>{@agent_prompt}</code></pre>
+                  <.code_block
+                    id="find-issue-prompt"
+                    content={@agent_prompt}
+                    pre_class="max-w-full whitespace-pre-wrap break-words rounded-xl border border-base-300 bg-neutral px-3 py-2 pr-8 text-xs text-neutral-content shadow-inner"
+                    class="mt-2"
+                  />
                 </div>
                 <div class="card-actions justify-start mt-2">
                   <a
@@ -127,7 +132,12 @@ defmodule LlmWelcomeWeb.HomeLive do
                   <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">
                     Tell your agent
                   </span>
-                  <pre class="mt-2 max-w-full whitespace-pre-wrap break-words rounded-xl border border-base-300 bg-neutral px-3 py-2 text-xs text-neutral-content shadow-inner"><code>{@prepare_prompt}</code></pre>
+                  <.code_block
+                    id="prepare-project-prompt"
+                    content={@prepare_prompt}
+                    pre_class="max-w-full whitespace-pre-wrap break-words rounded-xl border border-base-300 bg-neutral px-3 py-2 pr-8 text-xs text-neutral-content shadow-inner"
+                    class="mt-2"
+                  />
                 </div>
                 <div class="card-actions justify-start mt-2">
                   <a
