@@ -109,13 +109,13 @@ defmodule LlmWelcomeWeb.Layouts do
           </div>
         </nav>
 
-        <main class="mt-8 flex-1 px-1 pb-2 sm:px-2 sm:pb-4">
+        <main class="mt-8 flex-1 px-1 pb-2 sm:px-2 sm:pb-4 min-h-screen">
           {render_slot(@inner_block)}
         </main>
 
         <footer class="mt-8 border-t border-base-300 pt-6 text-sm text-base-content/60">
-          <div class="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
-            <div class="flex items-center gap-4">
+          <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+            <div class="flex items-center justify-center gap-4 sm:justify-start">
               <.link navigate={~p"/leaderboard"} class="hover:text-base-content transition">
                 Leaderboard
               </.link>
@@ -131,13 +131,24 @@ defmodule LlmWelcomeWeb.Layouts do
                 <.github_icon class="size-4" /> GitHub
               </a>
             </div>
-            <p>
+            <p class="sm:text-center">
+              Are you a human looking for your first issue? Check out
+              <a
+                href="https://goodfirstissue.dev"
+                target="_blank"
+                rel="noopener"
+                class="underline hover:text-base-content transition"
+              >
+                Good First Issue
+              </a>
+            </p>
+            <p class="sm:text-right">
               Created by
               <a
                 href="https://github.com/tomasz-tomczyk"
                 target="_blank"
                 rel="noopener"
-                class="hover:text-base-content transition"
+                class="underline hover:text-base-content transition"
               >
                 Tomasz Tomczyk
               </a>

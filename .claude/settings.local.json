@@ -24,7 +24,8 @@
       "WebFetch(domain:community.fly.io)",
       "WebFetch(domain:hex.pm)",
       "mcp__Tidewave-Web__browser_eval",
-      "mcp__tidewave__get_logs"
+      "mcp__tidewave__get_logs",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []

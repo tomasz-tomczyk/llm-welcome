@@ -121,10 +121,13 @@ defmodule LlmWelcomeWeb.HomeLive do
 
             <div class="card bg-base-100/80 border border-base-300 shadow-sm backdrop-blur rounded-2xl">
               <div class="card-body p-4">
-                <h2 class="card-title text-sm font-semibold text-base-content">
-                  <.icon name="hero-code-bracket-square" class="size-5 text-primary" />
-                  Prepare your project
-                </h2>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h2 class="card-title text-sm font-semibold text-base-content m-0">
+                    <.icon name="hero-code-bracket-square" class="size-5 text-primary" />
+                    Prepare your project
+                  </h2>
+                  <span class="badge badge-primary badge-outline">Looking for new projects!</span>
+                </div>
                 <p class="text-sm text-base-content/70">
                   Get your open source project ready to receive LLM-assisted contributions.
                 </p>

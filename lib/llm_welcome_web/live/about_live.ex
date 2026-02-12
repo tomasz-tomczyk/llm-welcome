@@ -68,12 +68,20 @@ defmodule LlmWelcomeWeb.AboutLive do
 
         <h2>What makes a good LLM Welcome issue?</h2>
 
+        <p>
+          Any issue where you'd genuinely welcome an AI-assisted contribution. This could be a
+          well-scoped task that's easy to pick up, or a hard challenge you'd like to see agents take
+          a stab at. Some examples:
+        </p>
+
         <ul>
           <li>
-            <strong>Well-defined scope:</strong> Clear start and end points
+            <strong>Well-defined tasks:</strong>
+            Clear scope with obvious start and end points—great for quick wins
           </li>
           <li>
-            <strong>Self-contained:</strong> Minimal dependencies on other work in progress
+            <strong>Hard problems:</strong>
+            Gnarly bugs, complex refactors, or ambitious features you'd love fresh eyes on
           </li>
           <li>
             <strong>Good context:</strong>
@@ -104,7 +112,7 @@ defmodule LlmWelcomeWeb.AboutLive do
             href="https://github.com/apps/llm-welcome"
             target="_blank"
             rel="noopener"
-            class="not-prose inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-content shadow transition hover:bg-primary/90 no-underline"
+            class="not-prose inline-flex items-center gap-2 rounded-xl bg-primary px-2 py-2.5 text-sm font-semibold text-primary-content shadow transition hover:bg-primary/90 no-underline"
           >
             Install the GitHub App <.icon name="hero-arrow-up-right" class="size-4" />
           </a>
