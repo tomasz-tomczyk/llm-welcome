@@ -1,24 +1,34 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mix format:*)",
-      "Bash(mix compile:*)",
-      "Skill(daisy-ui)",
-      "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs",
-      "Bash(mix deps.clean:*)",
-      "Bash(fly machines list:*)",
       "Bash(curl:*)",
-      "Bash(gh search code:*)",
-      "Bash(gh api:*)",
       "Bash(find:*)",
-      "mcp__plugin_reposit_reposit__search",
+      "Bash(fly certs list:*)",
       "Bash(fly deploy:*)",
+      "Bash(fly machines list:*)",
+      "Bash(gh api:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh search code:*)",
+      "Bash(mix compile:*)",
+      "Bash(mix deps.clean:*)",
+      "Bash(mix format:*)",
+      "mcp__context7__query-docs",
+      "mcp__context7__resolve-library-id",
+      "mcp__plugin_reposit_reposit__search",
       "mcp__plugin_reposit_reposit__share",
+      "mcp__tidewave__get_source_location",
+      "Skill(daisy-ui)",
       "WebFetch(domain:community.fly.io)",
-      "Bash(fly certs list:*)"
+      "WebFetch(domain:hex.pm)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "tidewave"
+  ]
 }

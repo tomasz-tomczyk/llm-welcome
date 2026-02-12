@@ -64,7 +64,8 @@ defmodule LlmWelcome.MixProject do
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.10"},
       {:req, "~> 0.5"},
-      {:jose, "~> 1.11"}
+      {:jose, "~> 1.11"},
+      {:tidewave, "~> 0.5", only: :dev}
     ]
   end
 
