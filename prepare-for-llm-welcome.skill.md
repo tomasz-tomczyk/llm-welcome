@@ -99,6 +99,18 @@ Example issue template:
 - [ ] Documentation updated (if applicable)
 ```
 
+## Step 5: Protect against unwanted AI PRs (optional)
+
+Use the [anti-slop](https://github.com/peakoss/anti-slop) GitHub Action to automatically close low-quality or unsolicited AI-generated PRs while allowing contributions on your `llm welcome` issues.
+
+1. Download the recommended workflow: https://llmwelcome.dev/anti-slop.yml
+2. Save it to `.github/workflows/anti-slop.yml` in your repository
+3. Commit and push
+
+The workflow auto-exempts repository owners, members, and collaborators. PRs linked to issues labeled `llm welcome` are also exempt.
+
+> **Customization:** See the [anti-slop documentation](https://github.com/peakoss/anti-slop) for all 44 configuration options, including account age requirements, merge ratio thresholds, and blocked file paths.
+
 ## Best practices
 
 | Practice                | Why                                            |
@@ -115,5 +127,6 @@ Example issue template:
 - [ ] `AGENTS.md` or `CLAUDE.md` created
 - [ ] `llm welcome` label created
 - [ ] At least one issue labeled
+- [ ] (Optional) Anti-slop workflow added
 
 Once you've completed these steps, your labeled issues will appear at https://llmwelcome.dev.
