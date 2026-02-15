@@ -125,6 +125,19 @@ defmodule LlmWelcomeWeb.AboutLive do
           pre_class="pr-8"
         />
 
+        <h2>Protecting your project</h2>
+
+        <p>
+          Worried about unsolicited AI-generated PRs? Use the
+          <a href="https://github.com/peakoss/anti-slop" target="_blank" rel="noopener">
+            anti-slop
+          </a>
+          GitHub Action to automatically close low-quality PRs while allowing contributions
+          on your <code>llm welcome</code>
+          issues. We provide a <a href="/anti-slop.yml" target="_blank">recommended workflow file</a>
+          you can drop into your repository.
+        </p>
+
         <h2>Open source</h2>
 
         <p>
