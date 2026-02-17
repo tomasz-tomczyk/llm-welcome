@@ -130,6 +130,13 @@ defmodule LlmWelcomeWeb.HomeLive do
                 </div>
                 <p class="text-sm text-base-content/70">
                   Get your open source project ready to receive LLM-assisted contributions.
+                  <.link
+                    navigate={~p"/about#protecting-your-project"}
+                    class="underline hover:text-base-content transition"
+                  >
+                    Automatically close unsolicited AI PRs
+                  </.link>
+                  with the anti-slop GitHub Action.
                 </p>
                 <div class="mt-2">
                   <span class="text-xs font-semibold uppercase tracking-[0.2em] text-base-content/50">

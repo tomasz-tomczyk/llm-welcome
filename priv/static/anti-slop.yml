@@ -1,0 +1,38 @@
+# Save this file to .github/workflows/anti-slop.yml in your repository
+#
+# This workflow uses the anti-slop GitHub Action to automatically close
+# low-quality and unsolicited AI-generated pull requests, while allowing
+# contributions on issues labeled "llm welcome".
+#
+# Learn more: https://llmwelcome.dev/about
+# Anti-slop docs: https://github.com/peakoss/anti-slop
+
+name: Anti-Slop
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  anti-slop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: peakoss/anti-slop@v1
+        with:
+          exempt-label: "llm welcome"
+          require-linked-issue: true
+          close-pr: true
+          failure-pr-message: |
+            Thanks for your interest in contributing! This PR was automatically
+            closed because it doesn't appear to be linked to an approved issue.
+
+            This project uses [LLM Welcome](https://llmwelcome.dev) to manage
+            AI-assisted contributions. If you'd like to contribute using AI tools,
+            please look for issues labeled `llm welcome` in this repository.
+
+            Browse available issues at https://llmwelcome.dev
