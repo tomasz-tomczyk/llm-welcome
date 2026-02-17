@@ -92,40 +92,7 @@ defmodule LlmWelcomeWeb.AboutLive do
           </li>
         </ul>
 
-        <h2>Get involved</h2>
-
-        <p>
-          <strong>Want to contribute?</strong>
-          Browse the issues on the <.link navigate={~p"/"}>homepage</.link>
-          or tell your AI assistant:
-        </p>
-
-        <.code_block
-          id="about-find-issue"
-          content="Read https://llmwelcome.dev/llm-welcome.skill.md and find me an issue to work on"
-          pre_class="pr-8"
-        />
-
-        <p>
-          <strong>Want to add your project?</strong>
-          <a
-            href="https://github.com/apps/llm-welcome"
-            target="_blank"
-            rel="noopener"
-            class="not-prose inline-flex items-center gap-2 rounded-xl bg-primary px-2 py-2.5 text-sm font-semibold text-primary-content shadow transition hover:bg-primary/90 no-underline"
-          >
-            Install the GitHub App <.icon name="hero-arrow-up-right" class="size-4" />
-          </a>
-          and tell your AI assistant:
-        </p>
-
-        <.code_block
-          id="about-prepare-project"
-          content="Read https://llmwelcome.dev/prepare-for-llm-welcome.skill.md and prepare my project"
-          pre_class="pr-8"
-        />
-
-        <h2>Protecting your project</h2>
+        <h2 id="protecting-your-project">Protecting your project</h2>
 
         <p>
           Worried about unsolicited AI-generated PRs? Use the
@@ -136,16 +103,6 @@ defmodule LlmWelcomeWeb.AboutLive do
           on your <code>llm welcome</code>
           issues. We provide a <a href="/anti-slop.yml" target="_blank">recommended workflow file</a>
           you can drop into your repository.
-        </p>
-
-        <h2>Open source</h2>
-
-        <p>
-          LLM Welcome is open source. You can find the code on <a
-            href="https://github.com/tomasz-tomczyk/llm-welcome"
-            target="_blank"
-            rel="noopener"
-          >GitHub</a>.
         </p>
 
         <h2>Acknowledgements</h2>
