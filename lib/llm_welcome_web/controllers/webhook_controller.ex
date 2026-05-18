@@ -7,6 +7,14 @@ defmodule LlmWelcomeWeb.WebhookController do
   alias LlmWelcome.GitHub.API
 
   @llm_welcome_label "llm welcome"
+  @repo_metadata_fields [
+    "description",
+    "full_name",
+    "language",
+    "name",
+    "owner",
+    "stargazers_count"
+  ]
 
   def github(conn, params) do
     event = get_req_header(conn, "x-github-event") |> List.first()
@@ -190,10 +198,13 @@ defmodule LlmWelcomeWeb.WebhookController do
 
   defp sync_repos(installation, repos) when is_list(repos) do
     for repo <- repos do
+      repo = enrich_repo_metadata(installation, repo)
+      owner = repo_owner(repo, installation)
+
       GitHub.upsert_repository(%{
         github_id: repo["id"],
         installation_id: installation.id,
-        owner: repo["owner"]["login"] || installation.account_login,
+        owner: owner,
         name: repo["name"],
         full_name: repo["full_name"],
         description: repo["description"],
@@ -215,6 +226,45 @@ defmodule LlmWelcomeWeb.WebhookController do
           "Failed to fetch repos for installation #{installation.github_installation_id}: #{inspect(reason)}"
         )
     end
+  end
+
+  defp enrich_repo_metadata(installation, repo) do
+    if Map.has_key?(repo, "stargazers_count") do
+      repo
+    else
+      owner = repo_owner(repo, installation)
+
+      case github_api().get_repo(installation.github_installation_id, owner, repo["name"]) do
+        {:ok, metadata} ->
+          Map.merge(repo, Map.take(metadata, @repo_metadata_fields))
+
+        {:error, reason} ->
+          Logger.warning(
+            "Failed to enrich repository metadata for #{repo["full_name"]}: #{inspect(reason)}"
+          )
+
+          repo
+      end
+    end
+  end
+
+  defp repo_owner(repo, installation) do
+    get_in(repo, ["owner", "login"]) ||
+      owner_from_full_name(repo["full_name"]) ||
+      installation.account_login
+  end
+
+  defp owner_from_full_name(full_name) when is_binary(full_name) do
+    case String.split(full_name, "/", parts: 2) do
+      [owner, _name] when owner != "" -> owner
+      _ -> nil
+    end
+  end
+
+  defp owner_from_full_name(_full_name), do: nil
+
+  defp github_api do
+    Application.get_env(:llm_welcome, :github_api, API)
   end
 
   defp extract_linked_issue_numbers(nil), do: []
